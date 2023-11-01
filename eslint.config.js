@@ -1,4 +1,4 @@
-import coreWebVitals from "next/core-web-vitals";
-import eslintConfigPrettier from "eslint-config-prettier";
+import coreWebVitals from 'next/core-web-vitals'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
-export default [coreWebVitals, eslintConfigPrettier];
+export default [coreWebVitals, eslintConfigPrettier]

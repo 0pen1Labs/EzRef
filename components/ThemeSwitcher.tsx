@@ -23,9 +23,10 @@ export function ThemeSwitcher() {
   return (
     <button onClick={handleClick}>
       <Image
+        className="hover:opacity-40"
         src={theme == 'light' ? Dark : Light}
-        width={25}
-        height={25}
+        width={28}
+        height={28}
         alt={'Theme'}
       />
     </button>

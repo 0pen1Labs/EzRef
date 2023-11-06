@@ -10,10 +10,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        bounce_right: {
+          '0%, 100%': {
+            transform: 'translateX(-25%)',
+            'animation-timing-function': 'cubic-bezier(0.8,0,1,1)',
+          },
+          '50%': {
+            transform: 'none',
+            'animation-timing-function': 'cubic-bezier(0,0,0.2,1)',
+          },
+        },
+      },
+      animation: {
+        'bounce-right': 'bounce_right 1s infinite alternate ease-in-out',
       },
     },
   },
@@ -26,11 +36,23 @@ const config: Config = {
       themes: {
         light: {
           layout: {}, // light theme layout tokens
-          colors: {}, // light theme colors
+          colors: {
+            transparent: 'transparent',
+            white: '#ffffff',
+            black: '#000000',
+            purple: '#633786',
+          }, // light theme colors
         },
         dark: {
           layout: {}, // dark theme layout tokens
-          colors: {}, // dark theme colors
+          colors: {
+            primary: {
+              transparent: 'transparent',
+              white: '#ffffff',
+              black: '#000000',
+              purple: '#633786',
+            },
+          }, // dark theme colors
         },
       },
     }),

@@ -7,7 +7,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'RefLink',
+  title: 'EzRef',
   description: 'Streamline Referrals -> Unlock Top Talent!',
 }
 

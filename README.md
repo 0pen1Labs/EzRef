@@ -2,7 +2,7 @@
 
 RefLink, a project developed by 0pen1Labs, is the ultimate solution to streamline referral management processes with ease and efficiency. 
 
-![Home](https://github.com/0pen1Labs/RefLink/blob/main/assets/Main%20Page.png)
+![Home](https://github.com/0pen1Labs/RefLink/blob/main/assets/home.png)
 
 ## Local setup
 Run these commands in the project dir.

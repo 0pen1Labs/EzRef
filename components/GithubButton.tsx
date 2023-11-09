@@ -19,9 +19,10 @@ export default function GithubButton() {
   return (
     <Image
       src={theme == 'light' ? GithubDarkLogo : GithubLightLogo}
-      width={25}
-      height={25}
+      width={0}
+      height={0}
       alt={'Theme'}
+      className="h-6 w-6"
     />
   )
 }

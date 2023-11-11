@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { Divider } from '@nextui-org/react'
 
 export default function DashboardSideNav() {
-  const [selectedItem, setSelectedItem] = useState<number>()
+  const [selectedItem, setSelectedItem] = useState<number>(0)
 
   const handleMenuClick = (index: number) => {
     setSelectedItem(index)

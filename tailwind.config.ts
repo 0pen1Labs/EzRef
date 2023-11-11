@@ -37,6 +37,7 @@ const config: Config = {
         light: {
           layout: {}, // light theme layout tokens
           colors: {
+            primary: '#C6C3F5',
             transparent: 'transparent',
             white: '#ffffff',
             black: '#000000',
@@ -46,12 +47,11 @@ const config: Config = {
         dark: {
           layout: {}, // dark theme layout tokens
           colors: {
-            primary: {
-              transparent: 'transparent',
-              white: '#ffffff',
-              black: '#000000',
-              purple: '#633786',
-            },
+            primary: '#C6C3F5',
+            transparent: 'transparent',
+            white: '#ffffff',
+            black: '#000000',
+            purple: '#633786',
           }, // dark theme colors
         },
       },

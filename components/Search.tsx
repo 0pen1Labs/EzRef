@@ -16,7 +16,7 @@ function Search({ onSearchClick }: Props) {
           alt="Search Icon"
           className="h-4 w-4 opacity-40"
         />
-        <div className="text-sm font-normal tracking-wide text-foreground/50">
+        <div className="text-sm font-extralight text-foreground/50">
           Search...
         </div>
       </div>

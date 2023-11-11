@@ -1,5 +1,6 @@
 import DashboardSideNav from '@/components/DashboardSideNav'
 import DashboardTopNav from '@/components/DashboardTopNav'
+import { Divider } from '@nextui-org/react'
 
 export default function DashboardLayout({
   children,
@@ -7,14 +8,16 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <div className="flex w-52 border-r border-foreground/20">
+    <div className="flex h-screen w-screen flex-row space-x-1">
+      <div className="flex w-52">
         <DashboardSideNav />
       </div>
-      <div className="flex flex-grow flex-col">
-        <div className="flex justify-end border-b border-foreground/20 px-10 py-4 drop-shadow-md">
+      <Divider orientation="vertical" />
+      <div className="flex flex-grow flex-col space-y-1">
+        <div className="flex justify-end px-10 py-4">
           <DashboardTopNav />
         </div>
+        <Divider />
         <div className="h-screen">{children}</div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { ThemeSwitcher } from './ThemeSwitcher'
 import GithubButton from './GithubButton'
 import { Link } from '@nextui-org/react'
 import Search from './Search'
+import Feedback from './Feedback'
 
 export default function DashboardTopNav() {
   const handleSearchClick = () => {
@@ -12,6 +13,7 @@ export default function DashboardTopNav() {
   return (
     <div className="flex flex-row items-center space-x-4">
       <Search onSearchClick={handleSearchClick} />
+      <Feedback userId="" />
       <Link
         href={'https://github.com/0pen1Labs/RefLink'}
         isExternal

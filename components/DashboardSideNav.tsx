@@ -7,6 +7,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { User } from '@nextui-org/react'
 import Link from 'next/link'
+import { Divider } from '@nextui-org/react'
 
 export default function DashboardSideNav() {
   const [selectedItem, setSelectedItem] = useState<number>()
@@ -33,7 +34,8 @@ export default function DashboardSideNav() {
           ))}
         </ul>
       </nav>
-      <div className="border-foreground-10 flex flex-row items-center border-t p-4 ">
+      <Divider />
+      <div className="flex flex-row items-center p-4 ">
         <Link
           href={'/profile'}
           className="flex w-full items-center rounded-md p-2 hover:bg-purple/10"

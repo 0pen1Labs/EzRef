@@ -42,6 +42,8 @@ const config: Config = {
             white: '#ffffff',
             black: '#000000',
             purple: '#633786',
+            greenStatus: '#5EAEA5',
+            redStatus: '#AE5E6D',
           }, // light theme colors
         },
         dark: {
@@ -52,6 +54,8 @@ const config: Config = {
             white: '#ffffff',
             black: '#000000',
             purple: '#633786',
+            greenStatus: '#5EAEA5',
+            redStatus: '#AE5E6D',
           }, // dark theme colors
         },
       },

@@ -1,5 +1,6 @@
 import DashboardSideNav from '@/components/DashboardSideNav'
 import DashboardTopNav from '@/components/DashboardTopNav'
+import PathBreadCrumb from '@/components/PathBreadCrumb'
 import { Divider } from '@nextui-org/react'
 import { ScrollShadow } from '@nextui-org/react'
 
@@ -15,7 +16,8 @@ export default function DashboardLayout({
       </div>
       <Divider orientation="vertical" />
       <div className="flex flex-grow flex-col space-y-1">
-        <div className="flex justify-end px-10 py-4">
+        <div className="flex w-full items-center justify-between px-10 py-4">
+          <PathBreadCrumb />
           <DashboardTopNav />
         </div>
         <Divider />

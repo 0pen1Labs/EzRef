@@ -13,7 +13,7 @@ export default async function Dashboard() {
 
       <div className="flex w-4/6 flex-col items-start justify-normal">
         <div className="text-2xl font-light text-foreground/50">Your Links</div>
-        <div className="flex w-full flex-col items-start justify-start overflow-hidden">
+        <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
           {/* Change this to show list */}
           <ListLinksItem
             title={'GitHub SDE3 Ref'}

@@ -4,12 +4,14 @@ import GithubButton from './GithubButton'
 import { Link } from '@nextui-org/react'
 import Search from './Search'
 import Feedback from './Feedback'
+import { useHotKey } from '@/hooks/useHotKey'
 
 export default function DashboardTopNav() {
   const handleSearchClick = () => {
     console.log('Search Clicked')
   }
 
+  useHotKey(['ctrl', 'k'], handleSearchClick)
   return (
     <div className="flex flex-row items-center space-x-4">
       <Search onSearchClick={handleSearchClick} />

@@ -42,7 +42,7 @@ export default function Feedback({ userId }: Props) {
         <form className="w-full flex-col space-y-2" action={handleOnclick}>
           <input
             required
-            className="text-md w-full rounded-md border border-foreground/20 bg-transparent px-2 py-1 text-foreground/50 focus:border-foreground/50"
+            className="text-md w-full rounded-md border border-foreground/20 bg-transparent px-2 py-1 text-foreground/50 outline-none hover:border-foreground/50 focus:border-foreground/50"
             name="email"
             type="email"
             placeholder="Email Address"
@@ -50,7 +50,7 @@ export default function Feedback({ userId }: Props) {
           <textarea
             rows={4}
             placeholder="Your feedback..."
-            className="text-md w-full rounded-md border border-foreground/20 bg-transparent p-2 text-foreground/50"
+            className="text-md w-full rounded-md border border-foreground/20 bg-transparent p-2 text-foreground/50 outline-none hover:border-foreground/50 focus:border-foreground/50"
           />
 
           <Divider className="my-2" />

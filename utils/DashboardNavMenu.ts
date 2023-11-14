@@ -7,7 +7,7 @@ export type DashboardMenu = {
 export const DashboardMenuList: DashboardMenu[] = [
   {
     name: 'Home',
-    path: '/dashboard/home',
+    path: '/dashboard',
     icon: '/home.svg',
   },
   {

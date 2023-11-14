@@ -37,21 +37,25 @@ const config: Config = {
         light: {
           layout: {}, // light theme layout tokens
           colors: {
+            primary: '#C6C3F5',
             transparent: 'transparent',
             white: '#ffffff',
             black: '#000000',
             purple: '#633786',
+            greenStatus: '#5EAEA5',
+            redStatus: '#AE5E6D',
           }, // light theme colors
         },
         dark: {
           layout: {}, // dark theme layout tokens
           colors: {
-            primary: {
-              transparent: 'transparent',
-              white: '#ffffff',
-              black: '#000000',
-              purple: '#633786',
-            },
+            primary: '#C6C3F5',
+            transparent: 'transparent',
+            white: '#ffffff',
+            black: '#000000',
+            purple: '#633786',
+            greenStatus: '#5EAEA5',
+            redStatus: '#AE5E6D',
           }, // dark theme colors
         },
       },

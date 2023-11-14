@@ -1,6 +1,7 @@
 import DashboardSideNav from '@/components/DashboardSideNav'
 import DashboardTopNav from '@/components/DashboardTopNav'
 import { Divider } from '@nextui-org/react'
+import { ScrollShadow } from '@nextui-org/react'
 
 export default function DashboardLayout({
   children,
@@ -18,7 +19,9 @@ export default function DashboardLayout({
           <DashboardTopNav />
         </div>
         <Divider />
-        <div className="h-screen">{children}</div>
+        <ScrollShadow className="h-screen overflow-hidden overflow-y-scroll">
+          {children}
+        </ScrollShadow>
       </div>
     </div>
   )

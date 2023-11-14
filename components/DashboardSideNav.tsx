@@ -4,13 +4,12 @@ import { DashboardMenuList } from '@/utils/DashboardNavMenu'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
 import { useState } from 'react'
-import Image from 'next/image'
 import { User } from '@nextui-org/react'
 import Link from 'next/link'
 import { Divider } from '@nextui-org/react'
 
 export default function DashboardSideNav() {
-  const [selectedItem, setSelectedItem] = useState<number>()
+  const [selectedItem, setSelectedItem] = useState<number>(0)
 
   const handleMenuClick = (index: number) => {
     setSelectedItem(index)

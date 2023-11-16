@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import EditLinkIcon from '@/public/link_edit.svg'
+import { LinkIcon } from '@heroicons/react/24/outline'
+import { RectangleStackIcon } from '@heroicons/react/24/outline'
 import ResponseIcon from '@/public/response.svg'
 import Link from 'next/link'
 
@@ -38,10 +39,10 @@ function ListLinksItem({ title, createdAt, id, status }: Props) {
 
       <div className="flex flex-row items-center space-x-4">
         <Link href={'/dashboard'} className="hover:opacity-75">
-          <Image src={EditLinkIcon} alt={'Edit Link'} />
+          <LinkIcon className="h-6 w-6 text-foreground" />
         </Link>
         <Link href={'/dashboard/response'} className="hover:opacity-75">
-          <Image src={ResponseIcon} alt={'Check Response'} />
+          <RectangleStackIcon className="h-6 w-6 text-foreground" />
         </Link>
       </div>
     </div>

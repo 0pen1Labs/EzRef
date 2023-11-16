@@ -2,7 +2,7 @@
 
 import { Breadcrumbs, BreadcrumbItem } from '@nextui-org/react'
 import { usePathname } from 'next/navigation'
-import HomeIcon from '@/public/home.svg'
+import { HomeIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -25,12 +25,10 @@ function PathBreadCrumb() {
           >
             <Link href={`/${item}`}>
               {pathItem.toLocaleLowerCase() === 'dashboard' ? (
-                <Image
-                  src={HomeIcon}
-                  alt="Dashboard Home Tag"
-                  width={0}
-                  height={0}
-                  className={`h-4 w-4  ${paths !== href && 'opacity-50'}`}
+                <HomeIcon
+                  className={`h-4 w-6 text-foreground ${
+                    paths !== href && 'opacity-50'
+                  }`}
                 />
               ) : (
                 pathItem

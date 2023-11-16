@@ -1,8 +1,37 @@
 import GenerateNewLinkCard from '@/components/GenerateNewLinkCard'
 import ListLinksItem from '@/components/ListLinksItem'
 import { Divider } from '@nextui-org/react'
+import { currentUser } from '@clerk/nextjs'
+import { User } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs'
+
+async function sendClerkId(user: User) {
+  const { getToken } = auth()
+  const email = user.emailAddresses[0].emailAddress
+  const clerkId = user.id
+  const token = await getToken()
+  const response = await fetch(`${process.env.BASE_URL}/v1/api/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      email: email,
+      clerkId: clerkId,
+    }),
+  })
+
+  console.log(await response.json())
+}
 
 export default async function Dashboard() {
+  const user = await currentUser()
+
+  if (user) {
+    sendClerkId(user)
+  }
+
   return (
     <div className="flex flex-col items-center p-10">
       <div className="mt-10 flex w-4/6 justify-center ">

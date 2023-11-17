@@ -26,11 +26,11 @@ async function sendClerkId(user: User) {
 }
 
 export default async function Dashboard() {
-  const user = await currentUser()
+  // const user = await currentUser()
 
-  if (user) {
-    sendClerkId(user)
-  }
+  // if (user) {
+  //   sendClerkId(user)
+  // }
 
   return (
     <div className="flex flex-col items-center p-10">

@@ -39,7 +39,11 @@ export default function Feedback({ userId }: Props) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="max-w-[320px] flex-col items-center justify-center rounded-lg border border-foreground/20 bg-background p-2">
-        <form className="w-full flex-col space-y-2" action={handleOnclick}>
+        <form
+          autoComplete="off"
+          className="w-full flex-col space-y-2"
+          action={handleOnclick}
+        >
           <input
             required
             className="text-md w-full rounded-md border border-foreground/20 bg-transparent px-2 py-1 text-foreground/50 outline-none hover:border-foreground/50 focus:border-foreground/50"

@@ -1,16 +1,18 @@
 'use client'
 
-import Image from 'next/image'
-import Hat from '@/public/hat.svg'
 import { useState } from 'react'
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { SparklesIcon } from '@heroicons/react/24/outline'
+import { useDispatch } from '@/hooks/useReduxHooks'
+import { setLinkCode } from '@/redux/slices/GenerateLinkSlice'
 
 type Props = {
   onGenerateClick: Function
 }
 
 function LinkInputEzref() {
+  const dispatch = useDispatch()
+
   const [endDomain, setEndDomain] = useState<string>('qrtWeopa (optional)')
 
   return (
@@ -26,12 +28,13 @@ function LinkInputEzref() {
           </span>
         </div>
       </div>
-      <form className="ms-2 flex w-full flex-grow flex-row items-center justify-between space-x-4">
+      <div className="ms-2 flex w-full flex-grow flex-row items-center justify-between space-x-4">
         <input
           id="endDomain"
           type="text"
           name="endDomain"
           placeholder={endDomain}
+          onChange={(e) => dispatch(setLinkCode(e.target.value))}
           className="w-full rounded-md border border-foreground/10 bg-gray-50 p-1 text-base font-light text-foreground/80 outline-none hover:border-foreground/20 dark:bg-foreground/5"
         />
         <button
@@ -43,7 +46,7 @@ function LinkInputEzref() {
           </span>
           <SparklesIcon className="mx-4 h-10 w-5 text-foreground opacity-80 group-hover:opacity-100" />
         </button>
-      </form>
+      </div>
     </div>
   )
 }

@@ -5,7 +5,6 @@ type Key = 'ctrl' | 'shift' | 'alt' | string
 export const useHotKey = (keys: Key[], callback: () => void) => {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      event.preventDefault()
       if (
         keys.every(
           (key) =>
@@ -15,6 +14,7 @@ export const useHotKey = (keys: Key[], callback: () => void) => {
             (typeof key === 'string' && event.key.toLocaleLowerCase() === key),
         )
       ) {
+        event.preventDefault()
         callback()
       }
     }

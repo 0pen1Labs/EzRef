@@ -32,7 +32,12 @@ export default function Feedback({ userId }: Props) {
   }
 
   return (
-    <Popover placement="bottom" shadow="sm" className="rounded">
+    <Popover
+      backdrop={'opaque'}
+      placement="bottom"
+      shadow="sm"
+      className="rounded"
+    >
       <PopoverTrigger>
         <Button radius="sm" size="sm" variant="bordered">
           Feedback

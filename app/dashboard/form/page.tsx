@@ -20,7 +20,7 @@ export default function Form() {
   useEffect(() => {}, [])
 
   return (
-    <form className="h-full w-full">
+    <form className="flex h-full w-full flex-col">
       <div className="sticky top-0 z-10 flex flex-col bg-background/70 px-4 opacity-75 backdrop-blur-md">
         <div className="flex flex-row items-center justify-between px-4 py-2">
           <div className="flex flex-row items-center space-x-2">
@@ -53,8 +53,8 @@ export default function Form() {
         </div>
         <Divider />
       </div>
-      <div className="flex items-center justify-center">
-        <div className="flex h-screen w-2/4 flex-col items-center justify-start gap-4 bg-foreground/5 px-8 py-4">
+      <div className="flex flex-grow items-start justify-center">
+        <div className="flex h-full w-2/4 flex-col items-center justify-start gap-4 bg-foreground/5  px-8 py-4">
           {formStructure.map((item, index) => (
             <FormField
               key={index}

@@ -21,7 +21,7 @@ export default function DashboardLayout({
           <DashboardTopNav />
         </div>
         <Divider />
-        <ScrollShadow className="h-screen overflow-hidden overflow-y-scroll">
+        <ScrollShadow className="h-screen overflow-hidden overflow-y-scroll scroll-smooth">
           {children}
         </ScrollShadow>
       </div>

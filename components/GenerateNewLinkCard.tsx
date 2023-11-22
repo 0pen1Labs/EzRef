@@ -2,26 +2,22 @@
 
 import { Tabs, Tab } from '@nextui-org/react'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { Key, useEffect, useState } from 'react'
 import LinkInputEzref from './LinkInputEzref'
 import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
-import { setName } from '@/redux/slices/GenerateLinkSlice'
+import { setLinkCode, setName } from '@/redux/slices/GenerateLinkSlice'
+import { useRouter } from 'next/navigation'
+import { addReferralLink } from '@/actions/ReferralLinkAction'
 
 function GenerateNewLinkCard() {
+  const router = useRouter()
   const name = useSelector((state) => state.rootReducer.referralLink.name)
-  const domain = useSelector((state) => state.rootReducer.referralLink.domain)
-  const linkCode = useSelector(
-    (state) => state.rootReducer.referralLink.linkCode,
-  )
   const dispatch = useDispatch()
-
-  const [selectedTab, setSelectedTabs] = useState<string>('ezref')
+  const [selectedTab, setSelectedTabs] = useState<Key>('ezref')
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
-    console.log(
-      `${name} is generated you can share : https://${domain}?fid=${linkCode}`,
-    )
+    router.push('/dashboard/form')
   }
 
   return (
@@ -32,12 +28,13 @@ function GenerateNewLinkCard() {
       <form
         autoComplete="off"
         className="mt-4 flex flex-col space-y-2"
-        onSubmit={(event) => handleSubmit(event)}
+        action={addReferralLink}
       >
         <input
           type="text"
           name="title"
           placeholder="Name your referral (optional)"
+          value={name}
           onChange={(e) => {
             dispatch(setName(e.target.value))
           }}
@@ -47,6 +44,8 @@ function GenerateNewLinkCard() {
           aria-label="options"
           variant="underlined"
           color="primary"
+          selectedKey={selectedTab}
+          onSelectionChange={setSelectedTabs}
           disabledKeys={['custom']}
         >
           <Tab key={'ezref'} title={'EzRef Domain'}>

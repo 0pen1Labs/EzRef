@@ -22,9 +22,23 @@ async function sendClerkId(user: User) {
     }),
   })
 
-  console.log(await response.json())
+  const userData = await response.json()
 }
+//TODO have to add fetch Top 10 Link of user.
 
+// const getLinkList = async (userId: string) => {
+//   const response = await fetch(`${process.env.BASE_URL}/v1/api/auth/register`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify({
+//       email: email,
+//       clerkId: clerkId,
+//     }),
+//   })
+// }
 export default async function Dashboard() {
   // const user = await currentUser()
 

@@ -9,6 +9,13 @@ export function getEnumKeys<
   return key
 }
 
+export function createWrapperAndAppendToBody(wrapperId: string): HTMLElement {
+  const wrapperElement: HTMLElement = document.createElement('div')
+  wrapperElement.setAttribute('id', wrapperId)
+  document.body.appendChild(wrapperElement)
+  return wrapperElement
+}
+
 // no use just for test
 type EnumObject = { [key: string]: number | string }
 type EnumObjectEnum<E extends EnumObject> = E extends {

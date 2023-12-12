@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
+    "@clerk/themes": "^1.7.9",
     "@heroicons/react": "^2.0.18",
     "@nextui-org/react": "^2.2.2",
     "@reduxjs/toolkit": "^1.9.7",

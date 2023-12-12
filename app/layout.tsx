@@ -34,6 +34,19 @@ export default function RootLayout({
           footerActionText: 'text-foreground/50 font-light',
           footerActionLink:
             'text-purple hover:text-purple hover:underline font-bold',
+          userButtonBox: 'flex flex-row-reverse',
+          userButtonOuterIdentifier: 'text-foreground',
+          userPreviewMainIdentifier: 'text-foreground',
+          userPreviewSecondaryIdentifier: 'text-foreground/70',
+          userButtonPopoverActionButton: 'group',
+          userButtonPopoverActionButtonIcon:
+            'text-foreground group-hover:opacity-50',
+          userButtonPopoverActionButtonText:
+            'text-foreground group-hover:text-foreground/50',
+          userButtonPopoverFooter: 'hidden',
+          navbarButtons: 'flex flex-col space-y-4',
+          badge: 'bg-primary/20 text-primary',
+          profileSectionPrimaryButton: 'text-purple',
         },
       }}
     >

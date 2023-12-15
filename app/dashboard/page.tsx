@@ -4,12 +4,13 @@ import { Divider } from '@nextui-org/react'
 import { currentUser } from '@clerk/nextjs'
 import { User } from '@clerk/nextjs/server'
 import { auth } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 async function sendClerkId(user: User) {
   const { getToken } = auth()
   const email = user.emailAddresses[0].emailAddress
-  const clerkId = user.id
   const token = await getToken()
+  console.log(token)
   const response = await fetch(`${process.env.BASE_URL}/v1/api/auth/register`, {
     method: 'POST',
     headers: {
@@ -18,11 +19,11 @@ async function sendClerkId(user: User) {
     },
     body: JSON.stringify({
       email: email,
-      clerkId: clerkId,
     }),
   })
 
   const userData = await response.json()
+  console.log(userData)
 }
 //TODO have to add fetch Top 10 Link of user.
 
@@ -40,12 +41,11 @@ async function sendClerkId(user: User) {
 //   })
 // }
 export default async function Dashboard() {
-  // const user = await currentUser()
+  const user = await currentUser()
 
-  // if (user) {
-  //   sendClerkId(user)
-  // }
-
+  if (user) {
+    sendClerkId(user)
+  }
   return (
     <div className="flex flex-col items-center p-10">
       <div className="mt-10 flex w-4/6 justify-center ">

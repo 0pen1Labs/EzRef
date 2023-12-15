@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="text-foreground/60 bg-background flex w-screen items-start justify-center py-8">
+    <footer className="flex w-screen items-start justify-center bg-background py-8 text-xs text-foreground/60">
       || Made with &#x1F9E1; in India ||
     </footer>
   )

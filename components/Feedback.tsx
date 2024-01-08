@@ -1,15 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Button,
-} from '@nextui-org/react'
+import { Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react'
 import { Divider } from '@nextui-org/react'
 import { RateFace } from '@/utils/RateFace'
 import Image from 'next/image'
+import { Button } from './ui/button'
 
 type Props = {
   userId: string
@@ -39,7 +35,7 @@ export default function Feedback({ userId }: Props) {
       className="rounded"
     >
       <PopoverTrigger>
-        <Button radius="sm" size="sm" variant="bordered">
+        <Button size={'sm'} variant="outline">
           Feedback
         </Button>
       </PopoverTrigger>
@@ -85,7 +81,7 @@ export default function Feedback({ userId }: Props) {
                 </div>
               ))}
             </div>
-            <Button type="submit" variant="solid" radius="sm" size="sm">
+            <Button type="submit" variant="default" size={'sm'}>
               Send
             </Button>
           </div>

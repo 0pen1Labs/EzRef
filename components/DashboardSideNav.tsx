@@ -8,6 +8,7 @@ import { User } from '@nextui-org/react'
 import Link from 'next/link'
 import { Divider } from '@nextui-org/react'
 import { UserButton } from '@clerk/nextjs'
+import { Separator } from './ui/separator'
 
 export default function DashboardSideNav() {
   const [selectedItem, setSelectedItem] = useState<number>(0)
@@ -34,7 +35,7 @@ export default function DashboardSideNav() {
           ))}
         </ul>
       </nav>
-      <Divider />
+      <Separator />
       <div className="flex flex-row items-center p-4">
         <UserButton
           showName={true}

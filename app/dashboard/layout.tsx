@@ -1,6 +1,7 @@
 import DashboardSideNav from '@/components/DashboardSideNav'
 import DashboardTopNav from '@/components/DashboardTopNav'
 import PathBreadCrumb from '@/components/PathBreadCrumb'
+import { Separator } from '@/components/ui/separator'
 import { Divider } from '@nextui-org/react'
 import { ScrollShadow } from '@nextui-org/react'
 
@@ -14,13 +15,13 @@ export default function DashboardLayout({
       <div className="flex w-52">
         <DashboardSideNav />
       </div>
-      <Divider orientation="vertical" />
+      <Separator orientation="vertical" />
       <div className="flex flex-grow flex-col space-y-1">
         <div className="flex w-full items-center justify-between px-10 py-4">
           <PathBreadCrumb />
           <DashboardTopNav />
         </div>
-        <Divider />
+        <Separator />
         <ScrollShadow className="h-screen overflow-hidden overflow-y-scroll scroll-smooth">
           {children}
         </ScrollShadow>

@@ -7,11 +7,10 @@ import Link from 'next/link'
 type Props = {
   title: string
   createdAt: string
-  id: string
   status: boolean
 }
 
-function ListLinksItem({ title, createdAt, id, status }: Props) {
+function ListLinksItem({ title, createdAt, status }: Props) {
   return (
     <div className="flex w-full flex-row items-center justify-between p-4">
       <div className="flex flex-col items-start">

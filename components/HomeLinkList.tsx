@@ -48,14 +48,7 @@ async function HomeLinkList() {
   const listView = (
     <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
       {res.data.map((item: any) => {
-        return (
-          <ListLinksItem
-            title={item.name ? item.name : ``}
-            createdAt={'10-NOV-23 / 12:08'}
-            key={item.id}
-            status={item.status}
-          />
-        )
+        return <ListLinksItem item={item} key={item.id} />
       })}
     </div>
   )

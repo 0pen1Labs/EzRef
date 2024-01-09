@@ -1,6 +1,5 @@
 'use client'
 
-import { Tabs, Tab } from '@nextui-org/react'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
 import { Key, useState } from 'react'
 import LinkInputEzref from './LinkInputEzref'
@@ -8,11 +7,11 @@ import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
 import { setName } from '@/redux/slices/GenerateLinkSlice'
 import { useRouter } from 'next/navigation'
 import { addReferralLink } from '@/actions/ReferralLinkAction'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 
 function GenerateNewLinkCard() {
   const router = useRouter()
   const name = useSelector((state) => state.rootReducer.referralLink.name)
-  const [selectedTab, setSelectedTabs] = useState<Key>('ezref')
   const dispatch = useDispatch()
 
   const handleSubmit = (event: any) => {
@@ -27,7 +26,7 @@ function GenerateNewLinkCard() {
       </div>
       <form
         autoComplete="off"
-        className="mt-4 flex flex-col space-y-2"
+        className="mt-4 flex flex-col"
         action={addReferralLink}
       >
         <input
@@ -40,28 +39,17 @@ function GenerateNewLinkCard() {
           }}
           className="mb-3 w-4/12 rounded-md border border-foreground/20 bg-gray-50 px-4 py-2 text-base font-thin text-foreground outline-none placeholder:text-foreground/30 hover:border-foreground/50 focus:border-foreground/50 dark:bg-foreground/5"
         />
-        <Tabs
-          aria-label="options"
-          variant="underlined"
-          color="primary"
-          selectedKey={selectedTab}
-          onSelectionChange={setSelectedTabs}
-          disabledKeys={['custom']}
-        >
-          <Tab key={'ezref'} title={'EzRef Domain'}>
-            <LinkInputEzref />
-          </Tab>
-          <Tab
-            key={'custom'}
-            title={
-              <div className="flex flex-row items-center space-x-2">
-                <div>Custom Domain</div>
-                <div>
-                  <LockClosedIcon className="h-4 w-4 text-foreground" />
-                </div>
-              </div>
-            }
-          ></Tab>
+        <Tabs defaultValue="ezref" className="my-3">
+          <TabsList className="mb-1">
+            <TabsTrigger value="ezref">EzRef Domain</TabsTrigger>
+            <TabsTrigger value="custom">Custom Domain</TabsTrigger>
+          </TabsList>
+          <TabsContent value="ezref">
+            <LinkInputEzref type="ezref" />
+          </TabsContent>
+          <TabsContent value="custom">
+            <LinkInputEzref type="custom" />
+          </TabsContent>
         </Tabs>
       </form>
     </div>

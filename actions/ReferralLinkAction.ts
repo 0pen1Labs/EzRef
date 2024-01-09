@@ -6,23 +6,25 @@ import { revalidateTag } from 'next/cache'
 
 export const addReferralLink = async (data: FormData) => {
   const { getToken } = auth()
-  let name: string, formCode: string, domain: string
-  const token = await getToken();
+  const token = await getToken()
 
-  const res = await fetch(`${process.env.BASE_URL}/v1/api/auth/register`, {
-    method: "POST",
+  const res = await fetch(`${process.env.BASE_URL}/v1/api/ref/generate`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       formCode: data.get('endDomain'),
+      domain: data.get('domain') ?? 'localhost:3000', //TODO change the domain in production
+      name: data.get('title'),
     }),
   })
 
-  if(res.ok){
-    revalidateTag()
+  const resData = await res.json()
+
+  if (resData.success) {
+    revalidateTag('links')
     redirect('/dashboard/form')
   }
-
 }

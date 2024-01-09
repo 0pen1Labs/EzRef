@@ -1,54 +1,69 @@
-'use client'
-import { Divider } from '@nextui-org/react'
 import ListLinksItem from './ListLinksItem'
-import { useEffect, useState } from 'react'
 import { auth } from '@clerk/nextjs'
+import NoDataSvg from '@/public/nodata.svg'
+import Image from 'next/image'
 
-function HomeLinkList() {
-  const [list, setList] = useState([])
-  useEffect(() => {
-    const fetchList = async () => {
-      const { getToken } = auth()
-      const token = await getToken()
-      const response = await fetch(`${process.env.BASE_URL}/v1/api/ref/links`, {
-        next: {
-          tags: ['links'],
-        },
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+const getList = async () => {
+  const { getToken } = auth()
+  const token = await getToken()
+  const response = await fetch(`${process.env.BASE_URL}/v1/api/ref/links`, {
+    next: {
+      tags: ['links'],
+    },
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
-      if (response.ok) {
-        const data = await response.json()
-        console.log(data.data)
-      }
-    }
+  if (response.ok) {
+    const data = await response.json()
+    console.log(data.data)
+    return data
+  }
 
-    fetchList()
+  return null
+}
 
-    return () => {
-      fetchList
-    }
-  }, [])
+async function HomeLinkList() {
+  const res = await getList()
+
+  const noData = (
+    <div className="mt-8 flex w-full flex-col items-center justify-center">
+      <Image
+        width={200}
+        height={200}
+        src={NoDataSvg}
+        className="opacity-50"
+        alt="No data found image"
+      />
+      <div className="text-xl font-light text-foreground/80">No data</div>
+      <div className="text-sm font-light text-foreground/50">
+        No links found or something went wrong!
+      </div>
+    </div>
+  )
+
+  const listView = (
+    <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
+      {res.data.map((item: any) => {
+        return (
+          <ListLinksItem
+            title={item.name ? item.name : ``}
+            createdAt={'10-NOV-23 / 12:08'}
+            key={item.id}
+            status={item.status}
+          />
+        )
+      })}
+    </div>
+  )
 
   return (
-    <div className="flex w-4/6 flex-col items-start justify-normal">
+    <div className="flex w-4/6 flex-grow flex-col items-start justify-normal">
       <div className="text-2xl font-light text-foreground/50">Your Links</div>
-      <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
-        {list.map((item: any) => {
-          return (
-            <ListLinksItem
-              title={item.name ? item.name : ``}
-              createdAt={'10-NOV-23 / 12:08'}
-              key={item.id}
-              status={item.status}
-            />
-          )
-        })}
-      </div>
+      {res.data.length != 0 ? listView : noData}
     </div>
   )
 }

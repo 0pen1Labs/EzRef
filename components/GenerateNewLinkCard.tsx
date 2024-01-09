@@ -2,18 +2,18 @@
 
 import { Tabs, Tab } from '@nextui-org/react'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
-import { Key, useEffect, useState } from 'react'
+import { Key, useState } from 'react'
 import LinkInputEzref from './LinkInputEzref'
 import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
-import { setLinkCode, setName } from '@/redux/slices/GenerateLinkSlice'
+import { setName } from '@/redux/slices/GenerateLinkSlice'
 import { useRouter } from 'next/navigation'
 import { addReferralLink } from '@/actions/ReferralLinkAction'
 
 function GenerateNewLinkCard() {
   const router = useRouter()
   const name = useSelector((state) => state.rootReducer.referralLink.name)
-  const dispatch = useDispatch()
   const [selectedTab, setSelectedTabs] = useState<Key>('ezref')
+  const dispatch = useDispatch()
 
   const handleSubmit = (event: any) => {
     event.preventDefault()

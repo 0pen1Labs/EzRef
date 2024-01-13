@@ -2,7 +2,7 @@ import DashboardSideNav from '@/components/DashboardSideNav'
 import DashboardTopNav from '@/components/DashboardTopNav'
 import PathBreadCrumb from '@/components/PathBreadCrumb'
 import { Separator } from '@/components/ui/separator'
-import { Divider } from '@nextui-org/react'
+import { Toaster } from '@/components/ui/toaster'
 import { ScrollShadow } from '@nextui-org/react'
 
 export default function DashboardLayout({
@@ -26,6 +26,7 @@ export default function DashboardLayout({
           {children}
         </ScrollShadow>
       </div>
+      <Toaster />
     </div>
   )
 }

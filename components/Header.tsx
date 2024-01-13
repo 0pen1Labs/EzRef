@@ -2,7 +2,6 @@ import { ThemeSwitcher } from './ThemeSwitcher'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { buttonVariants } from '@/components/ui/button'
 import Logo from './Logo'
-import { Button } from './ui/button'
 import Link from 'next/link'
 
 type Props = {}
@@ -26,7 +25,7 @@ export default function Header({}: Props) {
               href="/dashboard"
               className={buttonVariants({ variant: 'ghost' })}
             >
-              SignUp
+              SignIn
             </Link>
           </li>
           <div className="flex space-x-2">

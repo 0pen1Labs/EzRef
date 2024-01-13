@@ -3,8 +3,10 @@
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs'
 import { revalidateTag } from 'next/cache'
+import { refLinkSchema } from '@/validation/reflinkSchema'
+import { z } from 'zod'
 
-export const addReferralLink = async (data: FormData) => {
+export const addReferralLink = async (data: z.infer<typeof refLinkSchema>) => {
   const { getToken } = auth()
   const token = await getToken()
 
@@ -14,11 +16,7 @@ export const addReferralLink = async (data: FormData) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
-      formCode: data.get('endDomain'),
-      domain: data.get('domain') ?? 'localhost:3000', //TODO change the domain in production
-      name: data.get('title'),
-    }),
+    body: JSON.stringify(data),
   })
 
   const resData = await res.json()
@@ -26,5 +24,8 @@ export const addReferralLink = async (data: FormData) => {
   if (resData.success) {
     revalidateTag('links')
     redirect('/dashboard/form')
+  } else {
+    console.log(resData)
+    return { ...resData }
   }
 }

@@ -27,11 +27,11 @@ async function getLinkById(id: string) {
 }
 
 export default async function Form({ params }: Params) {
-  // const link = await getLinkById(params.id)
+  const link = await getLinkById(params.id)
 
-  // if (!link.success) {
-  //   redirect('/dashboard/')
-  // }
+  if (!link.success) {
+    redirect('/dashboard/')
+  }
 
   return <FormBody id={params.id} />
 }

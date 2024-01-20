@@ -14,7 +14,7 @@ Before you start contributing, ensure that you have:
 
 1. [Node.js](https://nodejs.org/) installed (version 18.x.x).
 2. [PNPM](https://pnpm.io/) installed (version 8.x.x).
-2. Cloned the repository.
+3. Cloned the repository.
 
 ## Setting Up the Project
 
@@ -22,6 +22,10 @@ Before you start contributing, ensure that you have:
 2. Clone your forked repository to your local machine.
 3. Install the project dependencies by running `pnpm install`.
 4. Start the development server using `pnpm dev`.
+
+## Raising an Issue
+
+If you want to report a bug or raise a feature request please submit issue on [Issue Tracker](https://github.com/0pen1Labs/RefLink/issues) as per the template provided [Bug Report Template](https://github.com/0pen1Labs/RefLink/blob/main/.github/ISSUE_TEMPLATE/bug_report.md), [Feature Request Template](https://github.com/0pen1Labs/RefLink/blob/main/.github/ISSUE_TEMPLATE/feature_request.md).
 
 ## Making Changes
 

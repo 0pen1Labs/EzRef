@@ -9,6 +9,10 @@
 # testing
 /coverage
 
+#IDE
+.idea
+.fleet
+
 # next.js
 /.next/
 /out/

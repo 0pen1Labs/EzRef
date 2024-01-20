@@ -1,11 +1,13 @@
 'use client'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import GithubButton from './GithubButton'
-import { Link } from '@nextui-org/react'
 import Search from './Search'
 import Feedback from './Feedback'
 import { useHotKey } from '@/hooks/useHotKey'
 import { useState } from 'react'
+import { buttonVariants } from './ui/button'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 export default function DashboardTopNav() {
   const [show, setShow] = useState(false)
@@ -25,11 +27,12 @@ export default function DashboardTopNav() {
         <Search onSearchClick={handleSearchClick} />
         <Feedback userId="" />
         <Link
-          href={'https://github.com/0pen1Labs/RefLink'}
-          isExternal
-          className="flex h-5 w-5 items-center justify-center hover:opacity-80"
+          href="https://github.com/0pen1Labs/RefLink"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={buttonVariants({ variant: 'ghost', size: 'icon' })}
         >
-          <GithubButton />
+          <GitHubLogoIcon className="h-[1.2rem] w-[1.2rem]" />
         </Link>
         <ThemeSwitcher />
       </div>

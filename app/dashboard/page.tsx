@@ -1,16 +1,14 @@
 import GenerateNewLinkCard from '@/components/GenerateNewLinkCard'
-import ListLinksItem from '@/components/ListLinksItem'
-import { Divider } from '@nextui-org/react'
 import { currentUser } from '@clerk/nextjs'
 import { User } from '@clerk/nextjs/server'
 import { auth } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+import HomeLinkList from '@/components/HomeLinkList'
+import { Separator } from '@/components/ui/separator'
 
 async function sendClerkId(user: User) {
   const { getToken } = auth()
   const email = user.emailAddresses[0].emailAddress
   const token = await getToken()
-  console.log(token)
   const response = await fetch(`${process.env.BASE_URL}/v1/api/auth/register`, {
     method: 'POST',
     headers: {
@@ -25,21 +23,21 @@ async function sendClerkId(user: User) {
   const userData = await response.json()
   console.log(userData)
 }
-//TODO have to add fetch Top 10 Link of user.
 
-// const getLinkList = async (userId: string) => {
-//   const response = await fetch(`${process.env.BASE_URL}/v1/api/auth/register`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//     body: JSON.stringify({
-//       email: email,
-//       clerkId: clerkId,
-//     }),
-//   })
-// }
+const getLinkList = async () => {
+  const { getToken } = auth()
+  const token = await getToken()
+  const response = await fetch(`${process.env.BASE_URL}/v1/api/ref/links`, {
+    next: {
+      tags: ['links'],
+    },
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
 export default async function Dashboard() {
   const user = await currentUser()
 
@@ -52,69 +50,9 @@ export default async function Dashboard() {
         <GenerateNewLinkCard />
       </div>
 
-      <Divider className="my-8" />
+      <Separator className="my-8" />
 
-      <div className="flex w-4/6 flex-col items-start justify-normal">
-        <div className="text-2xl font-light text-foreground/50">Your Links</div>
-        <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
-          {/* Change this to show list */}
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={true}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={false}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={true}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={false}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={true}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={false}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={true}
-          />
-          <Divider className="my-2" />
-          <ListLinksItem
-            title={'GitHub SDE3 Ref'}
-            createdAt={'10-NOV-23 / 12:08'}
-            id={''}
-            status={false}
-          />
-        </div>
-      </div>
+      <HomeLinkList />
     </div>
   )
 }

@@ -1,27 +1,36 @@
-import Image from 'next/image'
 import { LinkIcon } from '@heroicons/react/24/outline'
 import { RectangleStackIcon } from '@heroicons/react/24/outline'
-import ResponseIcon from '@/public/response.svg'
+import dayjs from '@/lib/datejs'
 import Link from 'next/link'
 
-type Props = {
-  title: string
-  createdAt: string
+type LinkItem = {
   id: string
-  status: boolean
+  name: string | null
+  description: string | null
+  domain: string
+  formCode: string
+  createdAt: string
+  updatedAt: string
+  exp: string | null
 }
 
-function ListLinksItem({ title, createdAt, id, status }: Props) {
+type Props = {
+  item: LinkItem
+}
+
+function ListLinksItem({ item }: Props) {
+  const status = true
+  const name = !item.name || item.name == '' ? `Untitled-RefLink` : item.name
   return (
     <div className="flex w-full flex-row items-center justify-between p-4">
       <div className="flex flex-col items-start">
         <div className="flex flex-row items-center space-x-2">
           <span className="text-base font-semibold text-foreground">
-            {title}
+            {name}
           </span>
           <span
             className={`text-base font-semibold ${
-              status ? 'text-greenStatus' : 'text-redStatus'
+              status ? 'text-active' : 'text-inactive'
             }`}
           >
             {status ? 'active' : 'inactive'}
@@ -32,7 +41,7 @@ function ListLinksItem({ title, createdAt, id, status }: Props) {
             Generated on:
           </span>
           <span className="text-sm font-normal text-foreground/80">
-            {createdAt}
+            {dayjs(item.createdAt).local().format('DD-MMM-YY  hh:mm')}
           </span>
         </div>
       </div>

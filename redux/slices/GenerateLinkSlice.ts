@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 type LinkDetails = {
-  name: string
+  name: string | undefined
   linkCode: string
   domain: string
 }

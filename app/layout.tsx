@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import { Providers } from '../providers/providers'
+import { Providers } from '@/providers/providers'
 import { ClerkProvider } from '@clerk/nextjs'
+import { cn } from '@/lib/utils'
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] })
 
@@ -51,7 +52,12 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={jetBrainsMono.className}>
+        <body
+          className={cn(
+            'min-h-screen bg-background font-sans antialiased',
+            jetBrainsMono.className,
+          )}
+        >
           <Providers>{children}</Providers>
         </body>
       </html>

@@ -20,10 +20,11 @@ export const addReferralLink = async (data: z.infer<typeof refLinkSchema>) => {
   })
 
   const resData = await res.json()
+  console.log(resData)
 
   if (resData.success) {
     revalidateTag('links')
-    redirect('/dashboard/form')
+    redirect(`/dashboard/form/${resData.data.id}`)
   } else {
     console.log(resData)
     return { ...resData }

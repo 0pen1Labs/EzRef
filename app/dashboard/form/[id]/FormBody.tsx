@@ -2,7 +2,7 @@
 
 import { Separator } from '@/components/ui/separator'
 import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
-import { FormSchema, setFavorite, setName } from '@/redux/slices/FormSlice'
+import { FormSchema, initialFormStructure, setFavorite, setFormStructure, setName } from '@/redux/slices/FormSlice'
 import { Button } from '@/components/ui/button'
 import FormPage from '@/components/FormPage'
 import {
@@ -21,32 +21,71 @@ import {
 } from '@/components/ui/dialog'
 import ShareDialogContent from '@/components/ShareDialogContent'
 import { Input } from '@/components/ui/input'
+import { useEffect, useState } from 'react'
+import { saveFormAndFinish } from '@/actions/FormAction'
+import { useToast } from '@/components/ui/use-toast'
 
-type Params = {
-  id: string
+type LinkResponse = {
+  id: string;
+  name: string;
+  description: string | null;
+  domain: string;
+  formCode: string;
+  createdAt: string;
+  updatedAt: string;
+  Form: null | Form;
 }
 
-export default function FormBody({ id }: Params) {
-  const formStructure: FormSchema[] = useSelector(
+type Form = {
+  id: string;
+  title: string | null;
+  description: string | null;
+  isFavorite: boolean;
+  formFields: Array<Object>;
+}
+type Params = {
+  item: LinkResponse
+}
+
+export default function FormBody({ item }: Params) {
+  const formStructure: FormSchema[] =  useSelector(
     (state) => state.rootReducer.form.formStructure,
-  )
-  const name: string = useSelector((state) => state.rootReducer.form.name)
-  const isFavorite: boolean = useSelector(
-    (state) => state.rootReducer.form.isFavorite,
-  )
-
-  const shareUrlDomain: string = useSelector(
-    (state) => state.rootReducer.referralLink.domain,
-  )
-  const shareUrlEndDomain = useSelector(
-    (state) => state.rootReducer.referralLink.linkCode,
-  )
-
+  );
+  const isFavorite: boolean = useSelector(state => state.rootReducer.form.isFavorite);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const name: string = item.name
   const dispatch = useDispatch()
+  const { toast } = useToast()
 
-  const handleAction = () => {
-    // saveFormAndFinish(formData, formStructure)
-    console.log('button clicked')
+
+  useEffect(() => {
+    if(item.Form && item.Form.formFields.length !== 0){
+      dispatch(setFormStructure(item.Form.formFields))    
+    } else {
+      dispatch(setFormStructure(initialFormStructure))
+    }
+  }, [])
+
+
+  const handleAction = async () => {
+    console.log('button clicked formData: ', formStructure);
+
+    const result = await saveFormAndFinish(isFavorite, item.id, formStructure);
+
+    if (result.success) {
+      setIsDialogOpen(true)
+    } else {
+      setIsDialogOpen(false)
+      toast({
+        variant: 'destructive',
+        title: 'Failed to save',
+        description: result.message,
+      })
+    }
+  }
+
+  function handleOpen(){
+    console.log("Dialog state",isDialogOpen)
   }
 
   return (
@@ -57,28 +96,29 @@ export default function FormBody({ id }: Params) {
             <FileIcon className="h-6 w-6" />
             <Input
               onChange={(e) => dispatch(setName(e.target.value))}
+              placeholder='Untitled'
               className="mb-1 w-40 border-foreground/10 bg-transparent p-1 text-xl font-bold text-foreground/80 outline-none placeholder:text-foreground/80 focus:border-foreground/10 focus:bg-foreground/10"
-              value={name}
+              value={name ? name : ''}
             />
-            {isFavorite ? (
+            {!isFavorite ? 
               <StarIcon
                 className={`h-6 w-6 text-foreground/50 hover:cursor-pointer hover:text-purple-500`}
                 onClick={() => dispatch(setFavorite())}
               />
-            ) : (
+             : 
               <StarFilledIcon
                 className={`h-6 w-6 text-purple-500 hover:cursor-pointer hover:opacity-80`}
                 onClick={() => dispatch(setFavorite())}
               />
-            )}
+            }
           </div>
           <div className="flex flex-row space-x-2">
-            <Dialog>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <Button
                   variant="outline"
                   className="rounded"
-                  onClick={() => handleAction()}
+                  onClick={handleAction}
                 >
                   Save & Share <Share1Icon className="ml-2 h-10 w-4 " />
                 </Button>
@@ -91,8 +131,8 @@ export default function FormBody({ id }: Params) {
                   </DialogDescription>
                 </DialogHeader>
                 <ShareDialogContent
-                  domain={shareUrlDomain}
-                  formCode={shareUrlEndDomain}
+                  domain={item.domain}
+                  formCode={item.formCode}
                 />
               </DialogContent>
             </Dialog>

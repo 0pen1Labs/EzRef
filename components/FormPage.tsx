@@ -14,6 +14,7 @@ function FormPage({ formStructure }: Props) {
           question={item.question}
           description={item.description}
           size={formStructure.length}
+          type={item.type}
           index={index}
         />
       ))}

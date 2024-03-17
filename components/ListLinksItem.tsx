@@ -2,6 +2,7 @@ import { LinkIcon } from '@heroicons/react/24/outline'
 import { RectangleStackIcon } from '@heroicons/react/24/outline'
 import dayjs from '@/lib/datejs'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 type LinkItem = {
   id: string
@@ -21,8 +22,9 @@ type Props = {
 function ListLinksItem({ item }: Props) {
   const status = true
   const name = !item.name || item.name == '' ? `Untitled-RefLink` : item.name
+
   return (
-    <div className="flex w-full flex-row items-center justify-between p-4">
+    <Link href={`/dashboard/form/${item.id}`} className="flex w-full flex-row items-center justify-between p-4 hover:bg-foreground/5">
       <div className="flex flex-col items-start">
         <div className="flex flex-row items-center space-x-2">
           <span className="text-base font-semibold text-foreground">
@@ -54,7 +56,7 @@ function ListLinksItem({ item }: Props) {
           <RectangleStackIcon className="h-6 w-6 text-foreground" />
         </Link>
       </div>
-    </div>
+    </Link>
   )
 }
 

@@ -21,7 +21,7 @@ type Props = {
 
 function ShareDialogContent({ domain, formCode }: Props) {
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const shareLink = `https://${domain}/forms/${formCode}`
+  const shareLink = `https://${domain}/form/${formCode}`
 
   const copyToClipBoard = async (text: string) => {
     try {

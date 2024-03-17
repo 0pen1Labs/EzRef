@@ -1,3 +1,5 @@
+import { FieldType } from "./FieldType"
+
 export function getEnumKeys<
   T extends string,
   TEnumValue extends string | number,
@@ -30,4 +32,21 @@ export function getEnumValues<E extends EnumObject>(
   return Object.keys(enumObject)
     .filter((key) => Number.isNaN(Number(key)))
     .map((key) => enumObject[key] as EnumObjectEnum<E>)
+}
+
+export function getEnum(value: string): FieldType | null{
+  switch(value){
+    case 'short':
+      return FieldType.short;
+    case 'long':
+      return FieldType.long;
+    case 'number':
+      return FieldType.number;
+    case 'file':
+      return FieldType.file;
+    case 'date':
+      return FieldType.date;
+    default: 
+      return null
+  }
 }

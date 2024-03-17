@@ -21,6 +21,11 @@ async function getLinkById(id: string) {
     body: JSON.stringify({ id: id }),
   })
 
+  // if (res.ok) {
+  //   return {
+  //     success: false,
+  //   }
+  // }
   const resData = await res.json()
   console.log(resData)
   return resData
@@ -33,5 +38,5 @@ export default async function Form({ params }: Params) {
     redirect('/dashboard/')
   }
 
-  return <FormBody id={params.id} />
+  return <FormBody item={link.data} />
 }

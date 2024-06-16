@@ -24,6 +24,7 @@ import { Input } from '@/components/ui/input'
 import { useEffect, useState } from 'react'
 import { saveFormAndFinish } from '@/actions/FormAction'
 import { useToast } from '@/components/ui/use-toast'
+import LightBorderButton from '@/components/LightBorderButton'
 
 type LinkResponse = {
   id: string;
@@ -115,25 +116,31 @@ export default function FormBody({ item }: Params) {
           <div className="flex flex-row space-x-2">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
+                {/* <LightBorderButton onClick={handleAction} label='Save & Share'>
+                  <Share1Icon className="ml-2 h-10 w-4 " />
+                </LightBorderButton> */}
                 <Button
-                  variant="outline"
+                 variant="outline"
                   className="rounded"
                   onClick={handleAction}
                 >
                   Save & Share <Share1Icon className="ml-2 h-10 w-4 " />
                 </Button>
+
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Share with</DialogTitle>
-                  <DialogDescription>
-                    Anyone who has this link will be able to view this.
-                  </DialogDescription>
-                </DialogHeader>
-                <ShareDialogContent
-                  domain={item.domain}
-                  formCode={item.formCode}
-                />
+              <DialogContent className="sm:max-w-md ">
+                
+                  <DialogHeader>
+                    <DialogTitle>Share with</DialogTitle>
+                    <DialogDescription>
+                      Anyone who has this link will be able to view this.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ShareDialogContent
+                    domain={item.domain}
+                    formCode={item.formCode}
+                  />
+              
               </DialogContent>
             </Dialog>
           </div>

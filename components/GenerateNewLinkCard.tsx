@@ -81,7 +81,7 @@ function GenerateNewLinkCard() {
   }
 
   return (
-    <div className="flex w-full flex-col rounded-md bg-gradient-to-t from-[#797979]/10 to-background p-10 dark:bg-gradient-to-t dark:from-[#121212]/30 dark:to-background">
+    <div className="flex w-full flex-col rounded-md bg-gradient-to-t from-[#797979]/10 to-background p-10 dark:bg-gradient-to-t dark:from-[#121212]/30 dark:to-transparent">
       <div className="text-2xl font-normal text-foreground/80">
         Generate new referral
       </div>

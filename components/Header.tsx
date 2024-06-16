@@ -3,12 +3,15 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { buttonVariants } from '@/components/ui/button'
 import Logo from './Logo'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
-type Props = {}
+type Props = {
+  className?: string 
+}
 
-export default function Header({}: Props) {
+export default function Header({className}: Props) {
   return (
-    <header className="bg-background px-32 py-4 pt-6 text-foreground">
+    <header className={cn("bg-background px-32 py-4 pt-6 text-foreground", className) }>
       <nav className="flex items-center justify-between">
         <Logo />
         <ul className="flex items-center space-x-4">

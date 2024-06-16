@@ -6,12 +6,14 @@ import { AnimTextSequence } from '@/utils/AnimTextSequence'
 import HeroImage from '@/public/hero_img.svg'
 import Image from 'next/image'
 import Line from '@/public/line.svg'
+import { BackgroundBeams } from '@/components/ui/background-beams'
 
 export default function Home() {
   return (
     <main className=" flex h-screen min-h-screen flex-col bg-background text-foreground ">
-      <Header />
-      <div className="flex flex-grow flex-row items-center justify-evenly ">
+      <BackgroundBeams />
+      <Header className='z-10 bg-transparent'/>
+      <div className="flex z-10 flex-grow flex-row items-center justify-evenly ">
         <div className="flex flex-col items-start">
           <div className="relative">
             <Image

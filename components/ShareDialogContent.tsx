@@ -21,7 +21,13 @@ type Props = {
 
 function ShareDialogContent({ domain, formCode }: Props) {
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const shareLink = `https://${domain}/form/${formCode}`
+
+  let shareLink: string;
+  if(process.env.NODE_ENV === 'development'){
+  shareLink = `http://localhost:3000/form/${formCode}`
+  } else {
+    shareLink = `https://${domain}/form/${formCode}`
+  }
 
   const copyToClipBoard = async (text: string) => {
     try {

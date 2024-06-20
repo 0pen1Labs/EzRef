@@ -3,6 +3,7 @@ import { auth } from '@clerk/nextjs'
 import NoDataSvg from '@/public/nodata.svg'
 import Image from 'next/image'
 import { prisma } from '@/lib/db'
+import { redirect } from 'next/navigation'
 
 const getList = async () => {
   const { userId } = auth();
@@ -38,13 +39,13 @@ const getList = async () => {
       return null;
     }
   } else {
-    return null;
+    redirect('/dashboard');
   }
 }
 
 async function HomeLinkList() {
   const res = await getList()
-  
+
   console.log(res)
 
   const noData = (

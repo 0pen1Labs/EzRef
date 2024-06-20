@@ -25,25 +25,8 @@ import { useEffect, useState } from 'react'
 import { saveFormAndFinish } from '@/actions/FormAction'
 import { useToast } from '@/components/ui/use-toast'
 import LightBorderButton from '@/components/LightBorderButton'
+import { LinkResponse } from '@/Types/Link'
 
-type LinkResponse = {
-  id: string;
-  name: string;
-  description: string | null;
-  domain: string;
-  formCode: string;
-  createdAt: string;
-  updatedAt: string;
-  Form: null | Form;
-}
-
-type Form = {
-  id: string;
-  title: string | null;
-  description: string | null;
-  isFavorite: boolean;
-  formFields: Array<Object>;
-}
 type Params = {
   item: LinkResponse
 }

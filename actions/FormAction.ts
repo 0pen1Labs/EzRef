@@ -1,34 +1,56 @@
 'use server'
 
+import { prisma } from '@/lib/db';
 import { FormSchema } from '@/redux/slices/FormSlice'
 import { auth } from '@clerk/nextjs'
+import { redirect } from 'next/navigation';
 
 export const saveFormAndFinish = async (
   isFavorite: boolean,
   linkId: string,
   formStructure: Array<FormSchema>,
 ) => {
-  const { getToken } = auth()
-  const token = await getToken()
+  const { userId } = auth();
 
-  const payload = {
-    isFavorite,
-    linkId,
-    formStructure,
+  if(userId){
+    const form = await prisma.form.upsert({
+      where: {
+        refId: linkId,
+      },
+      update: {
+        isFavorite: isFavorite,
+        formFields: formStructure,
+      },
+      create: {
+        refId: linkId,
+        isFavorite: isFavorite,
+        formFields: formStructure,
+        title: null,
+        description: null
+      },
+      
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        isFavorite: true,
+        formFields: true,
+      },
+      
+    })
+    if(form) {      
+      console.log('form', form);
+      return {
+        success: true,
+        message: "Form saved successfully",
+      }
+    } else {
+      return {
+        success: false,
+        message: "Failed to save form",
+      }
+    }
+  } else {
+    redirect('/dashboard')
   }
-
-  console.log("payload",payload)
-
-  const res = await fetch(`${process.env.BASE_URL}/v1/api/form/addform`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(payload),
-  })
-
-  const resData = await res.json();
-  console.log(resData)
-  return { ...resData }
 }

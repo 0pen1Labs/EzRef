@@ -1,18 +1,18 @@
 'use server'
 
-import { prisma } from '@/lib/db';
-import { FormSchema } from '@/redux/slices/FormSlice'
+import { FormSchema } from '@/Types/Link'
+import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs'
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
 
 export const saveFormAndFinish = async (
   isFavorite: boolean,
   linkId: string,
   formStructure: Array<FormSchema>,
 ) => {
-  const { userId } = auth();
+  const { userId } = auth()
 
-  if(userId){
+  if (userId) {
     const form = await prisma.form.upsert({
       where: {
         refId: linkId,
@@ -26,9 +26,9 @@ export const saveFormAndFinish = async (
         isFavorite: isFavorite,
         formFields: formStructure,
         title: null,
-        description: null
+        description: null,
       },
-      
+
       select: {
         id: true,
         createdAt: true,
@@ -36,18 +36,17 @@ export const saveFormAndFinish = async (
         isFavorite: true,
         formFields: true,
       },
-      
     })
-    if(form) {      
-      console.log('form', form);
+    if (form) {
+      console.log('form', form)
       return {
         success: true,
-        message: "Form saved successfully",
+        message: 'Form saved successfully',
       }
     } else {
       return {
         success: false,
-        message: "Failed to save form",
+        message: 'Failed to save form',
       }
     }
   } else {

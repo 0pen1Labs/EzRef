@@ -8,7 +8,6 @@ import {
   setTitle,
   setType,
 } from '@/redux/slices/FormSlice'
-import { FieldType } from '@/utils/FieldType'
 import { getEnum, getEnumKeys } from '@/utils/util'
 import { Bars4Icon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
@@ -23,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select'
+import { FieldType } from '@/Types/Link'
 
 type Props = {
   title?: string
@@ -36,7 +36,7 @@ type Props = {
 function FormField({ question, title, description, index, size, type }: Props) {
   const dispatch = useDispatch()
   const typeList = getEnumKeys(FieldType)
-  console.log(typeList);
+  console.log(typeList)
 
   return (
     <div className="flex w-full flex-row items-end gap-2">
@@ -77,8 +77,8 @@ function FormField({ question, title, description, index, size, type }: Props) {
               <Select
                 onValueChange={(value: any) => {
                   console.log('value', value)
-                  if(value){
-                    dispatch(setType({index: index, data: getEnum(value)!!}))
+                  if (value) {
+                    dispatch(setType({ index: index, data: getEnum(value)!! }))
                   }
                 }}
                 value={type ? typeList[type] : ''}

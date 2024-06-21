@@ -1,4 +1,4 @@
-import { FieldType } from "./FieldType"
+import { FieldType } from '@/Types/Link'
 
 export function getEnumKeys<
   T extends string,
@@ -34,19 +34,19 @@ export function getEnumValues<E extends EnumObject>(
     .map((key) => enumObject[key] as EnumObjectEnum<E>)
 }
 
-export function getEnum(value: string): FieldType | null{
-  switch(value){
+export function getEnum(value: string): FieldType | null {
+  switch (value) {
     case 'short':
-      return FieldType.short;
+      return FieldType.short
     case 'long':
-      return FieldType.long;
+      return FieldType.long
     case 'number':
-      return FieldType.number;
+      return FieldType.number
     case 'file':
-      return FieldType.file;
+      return FieldType.file
     case 'date':
-      return FieldType.date;
-    default: 
+      return FieldType.date
+    default:
       return null
   }
 }

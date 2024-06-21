@@ -1,14 +1,7 @@
-import { FieldType } from '@/utils/FieldType'
+import { FieldType, FormSchema } from '@/Types/Link'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export type FormSchema = {
-  title?: string
-  question?: string
-  type?: FieldType
-  description?: string
-}
-
-type Form = {
+type InitForm = {
   name: string
   isFavorite: boolean
   formStructure: Array<FormSchema>
@@ -33,7 +26,7 @@ export type FormFieldPayload = {
   data: string | FieldType
 }
 
-const initialState: Form = {
+const initialState: InitForm = {
   name: 'Untitled form',
   isFavorite: false,
   formStructure: initialFormStructure,

@@ -2,7 +2,12 @@
 
 import { Separator } from '@/components/ui/separator'
 import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
-import { FormSchema, initialFormStructure, setFavorite, setFormStructure, setName } from '@/redux/slices/FormSlice'
+import {
+  initialFormStructure,
+  setFavorite,
+  setFormStructure,
+  setName,
+} from '@/redux/slices/FormSlice'
 import { Button } from '@/components/ui/button'
 import FormPage from '@/components/FormPage'
 import {
@@ -25,36 +30,36 @@ import { useEffect, useState } from 'react'
 import { saveFormAndFinish } from '@/actions/FormAction'
 import { useToast } from '@/components/ui/use-toast'
 import LightBorderButton from '@/components/LightBorderButton'
-import { LinkResponse } from '@/Types/Link'
+import { FormSchema, LinkResponse } from '@/Types/Link'
 
 type Params = {
   item: LinkResponse
 }
 
 export default function FormBody({ item }: Params) {
-  const formStructure: FormSchema[] =  useSelector(
+  const formStructure: Array<FormSchema> = useSelector(
     (state) => state.rootReducer.form.formStructure,
-  );
-  const isFavorite: boolean = useSelector(state => state.rootReducer.form.isFavorite);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  )
+  const isFavorite: boolean = useSelector(
+    (state) => state.rootReducer.form.isFavorite,
+  )
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
   const name: string = item.name
   const dispatch = useDispatch()
   const { toast } = useToast()
 
-
   useEffect(() => {
-    if(item.Form && item.Form.formFields.length !== 0){
-      dispatch(setFormStructure(item.Form.formFields))    
+    if (item.Form && item.Form.formFields.length !== 0) {
+      dispatch(setFormStructure(item.Form.formFields))
     } else {
       dispatch(setFormStructure(initialFormStructure))
     }
   }, [])
 
-
   const handleAction = async () => {
-    console.log('button clicked formData: ', formStructure);
+    console.log('button clicked formData: ', formStructure)
 
-    const result = await saveFormAndFinish(isFavorite, item.id, formStructure);
+    const result = await saveFormAndFinish(isFavorite, item.id, formStructure)
 
     if (result.success) {
       setIsDialogOpen(true)
@@ -68,8 +73,8 @@ export default function FormBody({ item }: Params) {
     }
   }
 
-  function handleOpen(){
-    console.log("Dialog state",isDialogOpen)
+  function handleOpen() {
+    console.log('Dialog state', isDialogOpen)
   }
 
   return (
@@ -80,21 +85,21 @@ export default function FormBody({ item }: Params) {
             <FileIcon className="h-6 w-6" />
             <Input
               onChange={(e) => dispatch(setName(e.target.value))}
-              placeholder='Untitled'
+              placeholder="Untitled"
               className="mb-1 w-40 border-foreground/10 bg-transparent p-1 text-xl font-bold text-foreground/80 outline-none placeholder:text-foreground/80 focus:border-foreground/10 focus:bg-foreground/10"
               value={name ? name : ''}
             />
-            {!isFavorite ? 
+            {!isFavorite ? (
               <StarIcon
                 className={`h-6 w-6 text-foreground/50 hover:cursor-pointer hover:text-purple-500`}
                 onClick={() => dispatch(setFavorite())}
               />
-             : 
+            ) : (
               <StarFilledIcon
                 className={`h-6 w-6 text-purple-500 hover:cursor-pointer hover:opacity-80`}
                 onClick={() => dispatch(setFavorite())}
               />
-            }
+            )}
           </div>
           <div className="flex flex-row space-x-2">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -103,27 +108,24 @@ export default function FormBody({ item }: Params) {
                   <Share1Icon className="ml-2 h-10 w-4 " />
                 </LightBorderButton> */}
                 <Button
-                 variant="outline"
+                  variant="outline"
                   className="rounded"
                   onClick={handleAction}
                 >
                   Save & Share <Share1Icon className="ml-2 h-10 w-4 " />
                 </Button>
-
               </DialogTrigger>
               <DialogContent className="sm:max-w-md ">
-                
-                  <DialogHeader>
-                    <DialogTitle>Share with</DialogTitle>
-                    <DialogDescription>
-                      Anyone who has this link will be able to view this.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <ShareDialogContent
-                    domain={item.domain}
-                    formCode={item.formCode}
-                  />
-              
+                <DialogHeader>
+                  <DialogTitle>Share with</DialogTitle>
+                  <DialogDescription>
+                    Anyone who has this link will be able to view this.
+                  </DialogDescription>
+                </DialogHeader>
+                <ShareDialogContent
+                  domain={item.domain}
+                  formCode={item.formCode}
+                />
               </DialogContent>
             </Dialog>
           </div>

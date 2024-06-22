@@ -18,7 +18,9 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from './ui/select'
@@ -36,7 +38,6 @@ type Props = {
 function FormField({ question, title, description, index, size, type }: Props) {
   const dispatch = useDispatch()
   const typeList = getEnumKeys(FieldType)
-  console.log(typeList)
 
   return (
     <div className="flex w-full flex-row items-end gap-2">
@@ -45,8 +46,7 @@ function FormField({ question, title, description, index, size, type }: Props) {
           <div
             className={`flex w-full flex-col ${
               title === undefined && 'hidden'
-            }`}
-          >
+            }`}>
             <input
               name="title"
               value={title}
@@ -62,8 +62,7 @@ function FormField({ question, title, description, index, size, type }: Props) {
           <div
             className={`flex w-full flex-col ${
               question === undefined && 'hidden'
-            }`}
-          >
+            }`}>
             <div className="flex w-full flex-row items-center justify-end gap-2">
               <input
                 value={question}
@@ -75,23 +74,25 @@ function FormField({ question, title, description, index, size, type }: Props) {
                 placeholder="Question"
               />
               <Select
-                onValueChange={(value: any) => {
+                onValueChange={(value: string) => {
                   console.log('value', value)
                   if (value) {
                     dispatch(setType({ index: index, data: getEnum(value)!! }))
                   }
                 }}
-                value={type ? typeList[type] : ''}
-              >
+                value={type !== undefined ? typeList[type] : ''}>
                 <SelectTrigger className="w-40">
                   <SelectValue placeholder="Field type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {typeList.map((item, index) => (
-                    <SelectItem key={index} value={item}>
-                      {item}
-                    </SelectItem>
-                  ))}
+                  <SelectGroup>
+                    <SelectLabel>Field Type</SelectLabel>
+                    {typeList.map((item, index) => (
+                      <SelectItem key={index} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
@@ -124,8 +125,7 @@ function FormField({ question, title, description, index, size, type }: Props) {
             <button
               className="py-1"
               disabled={size <= 2}
-              onClick={() => dispatch(deleteField(index))}
-            >
+              onClick={() => dispatch(deleteField(index))}>
               <TrashIcon className="font-foreground/80 h-5 w-5" />
             </button>
           </div>

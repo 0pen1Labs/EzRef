@@ -49,13 +49,13 @@ function PublicFormField({
     }
   }
 
+  console.log('Type: ', type)
   return (
     <div
       className={cn(
         'flex w-4/5 flex-col items-center justify-center space-y-8 md:w-1/2',
         className,
-      )}
-    >
+      )}>
       <Card className="w-full">
         <CardHeader>
           <CardTitle>{question}</CardTitle>
@@ -69,8 +69,7 @@ function PublicFormField({
           variant="outline"
           className="text-foreground/60"
           onClick={onBack}
-          disabled={currentIndex === 0}
-        >
+          disabled={currentIndex === 0}>
           {' '}
           Back{' '}
         </Button>
@@ -82,8 +81,7 @@ function PublicFormField({
         <Button
           className="text-foreground"
           variant="outline"
-          onClick={handleNextAndSubmitClick}
-        >
+          onClick={handleNextAndSubmitClick}>
           {currentIndex === totalItems - 1 ? 'Submit' : 'Next'}
         </Button>
       </div>

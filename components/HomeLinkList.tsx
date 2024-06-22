@@ -6,11 +6,11 @@ import { prisma } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
 const getList = async () => {
-  const { userId } = auth();
+  const { userId } = auth()
 
-  if(userId) {
+  if (userId) {
     const refLinks = await prisma.refLinks.findMany({
-      take: 10,
+      take: 5,
       where: {
         user: {
           clerkId: {
@@ -31,15 +31,15 @@ const getList = async () => {
         formCode: true,
         exp: true,
       },
-    }) 
+    })
 
-    if(refLinks) {
-      return refLinks;
+    if (refLinks) {
+      return refLinks
     } else {
-      return null;
+      return null
     }
   } else {
-    redirect('/dashboard');
+    redirect('/dashboard')
   }
 }
 
@@ -66,9 +66,10 @@ async function HomeLinkList() {
 
   const listView = (
     <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
-      {res && res.map((item: any) => {
-        return <ListLinksItem item={item} key={item.id} />
-      })}
+      {res &&
+        res.map((item: any) => {
+          return <ListLinksItem item={item} key={item.id} />
+        })}
     </div>
   )
 

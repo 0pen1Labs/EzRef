@@ -6,6 +6,7 @@ import {
   initialFormStructure,
   setFavorite,
   setFormStructure,
+  setInitialState,
   setName,
 } from '@/redux/slices/FormSlice'
 import { Button } from '@/components/ui/button'
@@ -52,7 +53,7 @@ export default function FormBody({ item }: Params) {
     if (item.Form && item.Form.formFields.length !== 0) {
       dispatch(setFormStructure(item.Form.formFields))
     } else {
-      dispatch(setFormStructure(initialFormStructure))
+      dispatch(setInitialState())
     }
   }, [])
 
@@ -110,8 +111,7 @@ export default function FormBody({ item }: Params) {
                 <Button
                   variant="outline"
                   className="rounded"
-                  onClick={handleAction}
-                >
+                  onClick={handleAction}>
                   Save & Share <Share1Icon className="ml-2 h-10 w-4 " />
                 </Button>
               </DialogTrigger>

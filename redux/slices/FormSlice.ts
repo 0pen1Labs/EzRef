@@ -1,5 +1,6 @@
 import { FieldType, FormSchema } from '@/Types/Link'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { stat } from 'fs'
 
 type InitForm = {
   name: string
@@ -88,6 +89,11 @@ export const createFormSlice = createSlice({
       const position = action.payload
       state.formStructure.splice(position, 1)
     },
+    setInitialState: (state) => {
+      state.name = 'Untitled form'
+      state.isFavorite = false
+      state.formStructure = initialFormStructure
+    },
   },
 })
 
@@ -101,5 +107,6 @@ export const {
   addField,
   deleteField,
   setFormStructure,
+  setInitialState,
 } = createFormSlice.actions
 export default createFormSlice.reducer

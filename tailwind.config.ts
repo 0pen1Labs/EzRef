@@ -1,8 +1,8 @@
 import type { Config } from 'tailwindcss'
-const svgToDataUri = require("mini-svg-data-uri");
+const svgToDataUri = require('mini-svg-data-uri')
 const {
   default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+} = require('tailwindcss/lib/util/flattenColorPalette')
 
 const config = {
   darkMode: ['class'],
@@ -30,6 +30,7 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         active: 'hsl(var(--active))',
         inactive: 'hsl(var(--inactive))',
+        selected: 'hsl(var(--selected))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
@@ -81,32 +82,35 @@ const config = {
     },
   },
   plugins: [
-    require('tailwindcss-animate'), 
+    require('tailwindcss-animate'),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
-          "bg-dot-thick": (value: any) => ({
+          'bg-dot-thick': (value: any) => ({
             backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="2.5"></circle></svg>`
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="2.5"></circle></svg>`,
             )}")`,
           }),
         },
-        { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
-      );
+        {
+          values: flattenColorPalette(theme('backgroundColor')),
+          type: 'color',
+        },
+      )
     },
   ],
 } satisfies Config
 
 function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
+  let allColors = flattenColorPalette(theme('colors'))
   let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
- 
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  )
+
   addBase({
-    ":root": newVars,
-  });
+    ':root': newVars,
+  })
 }
 
 export default config

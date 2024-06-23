@@ -25,9 +25,9 @@ model User {
 model Form {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now())
-  title       String?   @db.Text
-  description String?   @db.Text
-  isFavorite  Boolean 
+  title       String?  @db.Text
+  description String?  @db.Text
+  isFavorite  Boolean
   updatedAt   DateTime @updatedAt()
   ref         RefLinks @relation(fields: [refId], references: [id])
   refId       String   @unique
@@ -35,26 +35,28 @@ model Form {
 }
 
 model RefLinks {
-  id          String    @id @default(uuid())
-  name        String?   @db.Text
-  description String?   @db.Text
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt()
-  domain      String    @db.Text
-  status      Boolean?  @db.Boolean
-  exp         DateTime? @db.Timestamptz(3)
-  formCode    String    @unique
+  id          String       @id @default(uuid())
+  name        String?      @db.Text
+  description String?      @db.Text
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt()
+  domain      String       @db.Text
+  status      Boolean?     @db.Boolean
+  exp         DateTime?    @db.Timestamptz(3)
+  formCode    String       @unique
   clerkId     String
-  user        User      @relation(fields: [clerkId], references: [clerkId])
+  user        User         @relation(fields: [clerkId], references: [clerkId])
   Form        Form?
-  response Submission[]
+  response    Submission[]
+
+  @@index([createdAt])
 }
 
 model Submission {
   id        String   @id @default(uuid())
-  response Json 
+  response  Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
-  form RefLinks @relation(fields: [formId], references: [id])
-  formId String @unique
+  form      RefLinks @relation(fields: [formId], references: [id])
+  formId    String   @unique
 }

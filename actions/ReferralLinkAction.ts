@@ -9,9 +9,10 @@ import { prisma } from '@/lib/db'
 
 export const addReferralLink = async (data: z.infer<typeof refLinkSchema>) => {
   const { userId } = auth()
+  let refLink
   if (userId) {
     try {
-      const refLink = await prisma.refLinks.create({
+      refLink = await prisma.refLinks.create({
         data: { ...data, clerkId: userId },
         select: {
           id: true,
@@ -22,22 +23,16 @@ export const addReferralLink = async (data: z.infer<typeof refLinkSchema>) => {
           exp: true,
         },
       })
-
-      if (refLink) {
-        revalidateTag('links')
-        redirect(`/dashboard/form/${refLink.id}`)
-      } else {
-        return {
-          success: false,
-          message:
-            'Not able to create Link, please make sure FormCode is unique',
-        }
-      }
     } catch (error) {
       return {
         success: false,
         message: 'Not able to create Link, please make sure FormCode is unique',
       }
+    }
+
+    if (refLink) {
+      revalidateTag('links')
+      redirect(`/dashboard/form/${refLink.id}`)
     }
   }
 }

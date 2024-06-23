@@ -3,17 +3,7 @@ import { RectangleStackIcon } from '@heroicons/react/24/outline'
 import dayjs from '@/lib/datejs'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-
-type LinkItem = {
-  id: string
-  name: string | null
-  description: string | null
-  domain: string
-  formCode: string
-  createdAt: string
-  updatedAt: string
-  exp: string | null
-}
+import { LinkItem } from '@/Types/Link'
 
 type Props = {
   item: LinkItem
@@ -21,10 +11,12 @@ type Props = {
 
 function ListLinksItem({ item }: Props) {
   const status = true
-  const name = !item.name || item.name == '' ? `Untitled-RefLink` : item.name
+  const name = !item.name || item.name == '' ? `Untitled-Link` : item.name
 
   return (
-    <Link href={`/dashboard/form/${item.id}`} className="flex w-full flex-row items-center justify-between p-4 hover:bg-foreground/5">
+    <Link
+      href={`/dashboard/form/${item.id}`}
+      className="flex w-full flex-row items-center justify-between p-4 hover:bg-foreground/5">
       <div className="flex flex-col items-start">
         <div className="flex flex-row items-center space-x-2">
           <span className="text-base font-semibold text-foreground">
@@ -33,8 +25,7 @@ function ListLinksItem({ item }: Props) {
           <span
             className={`text-base font-semibold ${
               status ? 'text-active' : 'text-inactive'
-            }`}
-          >
+            }`}>
             {status ? 'active' : 'inactive'}
           </span>
         </div>

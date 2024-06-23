@@ -22,9 +22,9 @@ export default function DashboardLayout({
           <DashboardTopNav />
         </div>
         <Separator />
-        <ScrollShadow className="h-screen overflow-hidden overflow-y-scroll scroll-smooth">
-          {children}
-        </ScrollShadow>
+        {/* <ScrollShadow className="h-screen overflow-hidden overflow-y-scroll scroll-smooth"> */}
+        {children}
+        {/* </ScrollShadow> */}
       </div>
       <Toaster />
     </div>

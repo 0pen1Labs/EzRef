@@ -2,31 +2,51 @@ import ListLinksItem from './ListLinksItem'
 import { auth } from '@clerk/nextjs'
 import NoDataSvg from '@/public/nodata.svg'
 import Image from 'next/image'
+import { prisma } from '@/lib/db'
+import { redirect } from 'next/navigation'
 
 const getList = async () => {
-  const { getToken } = auth()
-  const token = await getToken()
-  const response = await fetch(`${process.env.BASE_URL}/v1/api/ref/links`, {
-    next: {
-      tags: ['links'],
-    },
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const { userId } = auth()
 
-  if (response.ok) {
-    const data = await response.json()
-    return data
+  if (userId) {
+    const refLinks = await prisma.refLinks.findMany({
+      take: 5,
+      where: {
+        user: {
+          clerkId: {
+            equals: userId,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        domain: true,
+        createdAt: true,
+        updatedAt: true,
+        formCode: true,
+        exp: true,
+      },
+    })
+
+    if (refLinks) {
+      return refLinks
+    } else {
+      return null
+    }
+  } else {
+    redirect('/dashboard')
   }
-
-  return null
 }
 
 async function HomeLinkList() {
   const res = await getList()
+
+  console.log(res)
 
   const noData = (
     <div className="mt-8 flex w-full flex-col items-center justify-center">
@@ -46,16 +66,17 @@ async function HomeLinkList() {
 
   const listView = (
     <div className="mt-3 flex w-full flex-col items-start justify-start overflow-hidden">
-      {res.data.map((item: any) => {
-        return <ListLinksItem item={item} key={item.id} />
-      })}
+      {res &&
+        res.map((item: any) => {
+          return <ListLinksItem item={item} key={item.id} />
+        })}
     </div>
   )
 
   return (
     <div className="flex w-4/6 flex-grow flex-col items-start justify-normal">
       <div className="text-2xl font-light text-foreground/50">Your Links</div>
-      {res.data.length != 0 ? listView : noData}
+      {res && res.length != 0 ? listView : noData}
     </div>
   )
 }

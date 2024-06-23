@@ -1,8 +1,8 @@
-import { FormSchema } from '@/redux/slices/FormSlice'
+import { FormSchema } from '@/Types/Link'
 import FormField from './FormField'
 
 type Props = {
-  formStructure: FormSchema[]
+  formStructure: Array<FormSchema>
 }
 function FormPage({ formStructure }: Props) {
   return (

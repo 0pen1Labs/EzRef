@@ -19,12 +19,11 @@ export default function MenuItem({
     <Link
       href={path}
       className={`m-2 flex flex-row items-center rounded-md px-1 py-1 ${
-        selected ? 'hover bg-purple/30' : 'hover:bg-purple/10'
+        selected ? 'hover bg-selected/30' : 'hover:bg-selected/10'
       }`}
       onClick={() => {
         onMenuClick && onMenuClick()
-      }}
-    >
+      }}>
       <Image
         width={0}
         height={0}

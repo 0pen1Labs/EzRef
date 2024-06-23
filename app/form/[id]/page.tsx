@@ -1,7 +1,9 @@
-import PublicResponseForm from "@/components/PublicResponseForm"
-import { HeroHighlight } from "@/components/ui/hero-highlight"
-import { auth } from "@clerk/nextjs"
-import { notFound } from "next/navigation"
+import { FormSchema } from '@/Types/Link'
+import PublicResponseForm from '@/components/PublicResponseForm'
+import { HeroHighlight } from '@/components/ui/hero-highlight'
+import { prisma } from '@/lib/db'
+import { auth } from '@clerk/nextjs'
+import { notFound } from 'next/navigation'
 
 type Params = {
   params: {
@@ -10,32 +12,30 @@ type Params = {
 }
 
 const getForm = async (formCode: string) => {
-  const { getToken } = auth()
-  const token = await getToken()
+  const form = await prisma.refLinks.findUnique({
+    where: {
+      formCode: formCode,
+    },
+    select: {
+      id: true,
+      domain: true,
+      formCode: true,
+      Form: true,
+    },
+  })
 
-    const res = await fetch(`${process.env.BASE_URL}/v1/api/form/getformbyformcode/${formCode}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      }
-    })
-
-    if(res.ok) {
-      const resData = await res.json()
-      console.log(resData.data)
-      return resData.data
-    } 
-    else {
-      return false
-    }
+  if (form) {
+    console.log(form)
+    return form
+  } else {
+    return false
+  }
 }
 
 async function page({ params }: Params) {
-
   const publicForm = await getForm(params.id)
 
-  if(!publicForm){
+  if (!publicForm) {
     return notFound()
   }
 
@@ -45,11 +45,14 @@ async function page({ params }: Params) {
   //TODO call save response API to save response.
 
   return (
-  <div>
-    <HeroHighlight containerClassName="w-full h-screen ">
-      <PublicResponseForm formStructure={publicForm.Form.formFields}/>
-    </HeroHighlight>
-  </div>)
+    <div>
+      <HeroHighlight containerClassName="w-full h-screen ">
+        <PublicResponseForm
+          formStructure={publicForm.Form?.formFields as Array<FormSchema>}
+        />
+      </HeroHighlight>
+    </div>
+  )
 }
 
 export default page

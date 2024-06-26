@@ -8,7 +8,6 @@ import {
   setTitle,
   setType,
 } from '@/redux/slices/FormSlice'
-import { getEnum, getEnumKeys } from '@/utils/util'
 import { Bars4Icon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import { TrashIcon } from '@heroicons/react/24/outline'
@@ -25,6 +24,7 @@ import {
   SelectValue,
 } from './ui/select'
 import { FieldType } from '@/Types/Link'
+import { getEnum, getEnumKeys } from '@/lib/utils'
 
 type Props = {
   title?: string

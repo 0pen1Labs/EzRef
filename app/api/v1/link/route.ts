@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = async (request: NextRequest) => {
   const req = await request.json()
-  const { userId } = auth()
+  const { userId, redirectToSignIn } = auth()
 
   const count = 10
   const page = req.page || 1
@@ -49,5 +49,17 @@ export const POST = async (request: NextRequest) => {
     }
   } else {
     return NextResponse.redirect(new URL('/sign-in', request.nextUrl.basePath))
+  }
+}
+
+export const DELETE = async (request: NextRequest) => {
+  const { userId } = auth()
+  const req = await request.json()
+
+  if (userId) {
+    try {
+    } catch (error) {}
+  } else {
+    return
   }
 }

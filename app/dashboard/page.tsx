@@ -1,5 +1,5 @@
 import GenerateNewLinkCard from '@/components/GenerateNewLinkCard'
-import { currentUser } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server'
 import { User } from '@clerk/nextjs/server'
 import { auth } from '@clerk/nextjs/server'
 import HomeLinkList from '@/components/HomeLinkList'

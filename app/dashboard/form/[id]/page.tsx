@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import FormBody from './FormBody'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/db'
@@ -27,13 +27,13 @@ async function getLinkById(id: string) {
         formCode: true,
         createdAt: true,
         updatedAt: true,
-        Form: true
-      }
+        Form: true,
+      },
     })
-  
-    if(refLink) {
-      console.log(refLink);
-      return refLink;
+
+    if (refLink) {
+      console.log(refLink)
+      return refLink
     } else {
       redirect('/dashboard')
     }

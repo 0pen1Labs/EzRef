@@ -9,6 +9,14 @@ import AllLinksField from '@/components/AllLinksField'
 import { LinkItem } from '@/Types/Link'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Loader from './loader'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
+import GenerateNewLinkCard from '@/components/GenerateNewLinkCard'
 
 export default function Link() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -82,9 +90,18 @@ export default function Link() {
           <span className="text-sm font-light text-foreground/50">
             Page {currentPage} of {totalPages}
           </span>
-          <Button variant="outline" size={'sm'}>
-            New Link
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size={'sm'}>
+                New Link
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="px-0 py-2">
+              <div className="flex flex-col items-center justify-center md:w-full">
+                <GenerateNewLinkCard />
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <ScrollArea className="w-full flex-grow">

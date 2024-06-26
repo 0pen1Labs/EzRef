@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import { revalidateTag } from 'next/cache'
 import { refLinkSchema } from '@/validation/reflinkSchema'
 import { z } from 'zod'

@@ -2,7 +2,7 @@ import { FormSchema } from '@/Types/Link'
 import PublicResponseForm from '@/components/PublicResponseForm'
 import { HeroHighlight } from '@/components/ui/hero-highlight'
 import { prisma } from '@/lib/db'
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import { notFound } from 'next/navigation'
 
 type Params = {

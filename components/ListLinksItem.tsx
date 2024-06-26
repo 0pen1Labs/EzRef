@@ -14,10 +14,10 @@ function ListLinksItem({ item }: Props) {
   const name = !item.name || item.name == '' ? `Untitled-Link` : item.name
 
   return (
-    <Link
-      href={`/dashboard/form/${item.id}`}
-      className="flex w-full flex-row items-center justify-between p-4 hover:bg-foreground/5">
-      <div className="flex flex-col items-start">
+    <div className="flex w-full flex-row items-center justify-between p-4 hover:bg-foreground/5">
+      <Link
+        href={`/dashboard/form/${item.id}`}
+        className="flex flex-grow flex-col items-start">
         <div className="flex flex-row items-center space-x-2">
           <span className="text-base font-semibold text-foreground">
             {name}
@@ -37,17 +37,18 @@ function ListLinksItem({ item }: Props) {
             {dayjs(item.createdAt).local().format('DD-MMM-YY  hh:mm')}
           </span>
         </div>
-      </div>
+      </Link>
 
       <div className="flex flex-row items-center space-x-4">
         <Link href={'/dashboard'} className="hover:opacity-75">
           <LinkIcon className="h-6 w-6 text-foreground" />
         </Link>
+
         <Link href={'/dashboard/response'} className="hover:opacity-75">
           <RectangleStackIcon className="h-6 w-6 text-foreground" />
         </Link>
       </div>
-    </Link>
+    </div>
   )
 }
 

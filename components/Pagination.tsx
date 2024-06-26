@@ -15,7 +15,7 @@ function Pagination({
   return (
     <div
       className={cn(
-        'flex flex-row items-center justify-center space-x-4 border py-3',
+        'flex flex-row items-center justify-center space-x-4 border-t py-2',
       )}>
       <Button
         variant="ghost"

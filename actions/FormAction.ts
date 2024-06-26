@@ -2,8 +2,8 @@
 
 import { FormSchema } from '@/Types/Link'
 import { prisma } from '@/lib/db'
-import { auth } from '@clerk/nextjs'
-import { redirect } from 'next/navigation'
+import { auth } from '@clerk/nextjs/server'
+import { RedirectType, permanentRedirect, redirect } from 'next/navigation'
 
 export const saveFormAndFinish = async (
   isFavorite: boolean,
@@ -50,6 +50,6 @@ export const saveFormAndFinish = async (
       }
     }
   } else {
-    redirect('/dashboard')
+    permanentRedirect('/sign-in', RedirectType.replace)
   }
 }

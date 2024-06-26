@@ -3,6 +3,7 @@ const svgToDataUri = require('mini-svg-data-uri')
 const {
   default: flattenColorPalette,
 } = require('tailwindcss/lib/util/flattenColorPalette')
+const { fontFamily } = require('tailwindcss/defaultTheme')
 
 const config = {
   darkMode: ['class'],
@@ -22,6 +23,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--jetbrains-mono)', ...fontFamily.mono],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

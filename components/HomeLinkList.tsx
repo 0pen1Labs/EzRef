@@ -1,5 +1,5 @@
 import ListLinksItem from './ListLinksItem'
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import NoDataSvg from '@/public/nodata.svg'
 import Image from 'next/image'
 import { prisma } from '@/lib/db'

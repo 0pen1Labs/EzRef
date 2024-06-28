@@ -33,15 +33,29 @@ type Props = {
   size: number
   index: number
   type?: number
+  isError?: boolean
+  errorField?: string[]
 }
 
-function FormField({ question, title, description, index, size, type }: Props) {
+function FormField({
+  question,
+  title,
+  description,
+  index,
+  size,
+  type,
+  isError,
+  errorField,
+}: Props) {
   const dispatch = useDispatch()
   const typeList = getEnumKeys(FieldType)
 
   return (
     <div className="flex w-full flex-row items-end gap-2">
-      <Card className="flex w-full flex-col border border-foreground/30 bg-background p-4">
+      <Card
+        className={`flex w-full flex-col border border-foreground/30 bg-background p-4 ${
+          isError ? 'border-destructive/50' : ''
+        }`}>
         <CardContent>
           <div
             className={`flex w-full flex-col ${

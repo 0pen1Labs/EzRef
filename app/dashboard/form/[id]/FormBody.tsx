@@ -32,6 +32,12 @@ import { saveFormAndFinish } from '@/actions/FormAction'
 import { useToast } from '@/components/ui/use-toast'
 import LightBorderButton from '@/components/LightBorderButton'
 import { FormSchema, LinkResponse } from '@/Types/Link'
+import { ZodError, set, z } from 'zod'
+import {
+  formFieldSchema,
+  formStructureSchema,
+  formTitleFieldSchema,
+} from '@/validation/formStructureSchema'
 
 type Params = {
   item: LinkResponse
@@ -47,6 +53,14 @@ export default function FormBody({ item }: Params) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const name: string = item.name
   const dispatch = useDispatch()
+  const [zodError, setZodError] = useState<
+    | ZodError<
+        Array<
+          z.infer<typeof formTitleFieldSchema> | z.infer<typeof formFieldSchema>
+        >
+      >
+    | undefined
+  >(undefined)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -57,25 +71,37 @@ export default function FormBody({ item }: Params) {
     }
   }, [])
 
-  const handleAction = async () => {
+  const handleAction = async (event: any) => {
+    event.preventDefault()
     console.log('button clicked formData: ', formStructure)
 
-    const result = await saveFormAndFinish(isFavorite, item.id, formStructure)
+    const isFavoriteFormStructureValid =
+      formStructureSchema.safeParse(formStructure)
 
-    if (result.success) {
-      setIsDialogOpen(true)
-    } else {
-      setIsDialogOpen(false)
+    if (!isFavoriteFormStructureValid.success) {
+      console.log(
+        'Invalid form structure:\n',
+        isFavoriteFormStructureValid.error,
+      )
+      setZodError(isFavoriteFormStructureValid.error)
       toast({
         variant: 'destructive',
-        title: 'Failed to save',
-        description: result.message,
+        title: 'Error',
+        description: 'Failed to save form',
       })
-    }
-  }
+    } else {
+      const result = await saveFormAndFinish(isFavorite, item.id, formStructure)
 
-  function handleOpen() {
-    console.log('Dialog state', isDialogOpen)
+      if (result.success) {
+        setIsDialogOpen(true)
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Failed to save',
+          description: result.message,
+        })
+      }
+    }
   }
 
   return (
@@ -103,19 +129,15 @@ export default function FormBody({ item }: Params) {
             )}
           </div>
           <div className="flex flex-row space-x-2">
+            <Button
+              variant="outline"
+              className="rounded"
+              onClick={(event) => handleAction(event)}>
+              Save & Share <Share1Icon className="ml-2 h-10 w-4 " />
+            </Button>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                {/* <LightBorderButton onClick={handleAction} label='Save & Share'>
-                  <Share1Icon className="ml-2 h-10 w-4 " />
-                </LightBorderButton> */}
-                <Button
-                  variant="outline"
-                  className="rounded"
-                  onClick={handleAction}>
-                  Save & Share <Share1Icon className="ml-2 h-10 w-4 " />
-                </Button>
-              </DialogTrigger>
               <DialogContent className="sm:max-w-md ">
+                (data)
                 <DialogHeader>
                   <DialogTitle>Share with</DialogTitle>
                   <DialogDescription>
@@ -133,7 +155,7 @@ export default function FormBody({ item }: Params) {
         <Separator />
       </div>
       <div className="flex flex-grow items-start justify-center">
-        <FormPage formStructure={formStructure} />
+        <FormPage formStructure={formStructure} formError={zodError} />
       </div>
     </form>
   )

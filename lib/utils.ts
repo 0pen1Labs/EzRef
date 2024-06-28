@@ -1,6 +1,11 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { FieldType } from '@/Types/Link'
+import { ZodError, z } from 'zod'
+import {
+  formFieldSchema,
+  formTitleFieldSchema,
+} from '@/validation/formStructureSchema'
 
 /**
  * A function that combines multiple CSS class names into a single string.
@@ -85,5 +90,28 @@ export function getEnum(value: string): FieldType | null {
       return FieldType.date
     default:
       return null
+  }
+}
+
+export function getErrorFromZod(
+  index: number,
+  zodError: ZodError<
+    Array<
+      z.infer<typeof formTitleFieldSchema> | z.infer<typeof formFieldSchema>
+    >
+  >,
+): { index: number; errorFields: Array<string>; isError: boolean } {
+  const errorList = zodError.issues.filter((item) => {
+    return item.path[0] === index
+  })
+
+  if (errorList.length === 0) {
+    return { index: -1, errorFields: [], isError: false }
+  }
+
+  return {
+    index,
+    errorFields: errorList.map((item) => item.path[1] as string),
+    isError: true,
   }
 }

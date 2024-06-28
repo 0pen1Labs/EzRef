@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db-migrate": "pnpm exec prisma migrate dev --name '${npm_config_name}'",
+    "db-migrate-dev": "pnpm exec prisma migrate dev --name '${npm_config_name}'",
+    "db-migrate-deploy": "pnpm exec prisma migrate deploy --name '${npm_config_name}'",
     "db-push": "pnpm exec prisma db push",
     "db-gen": "pnpm exec prisma generate",
     "db": "pnpm exec prisma studio"

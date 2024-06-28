@@ -2,7 +2,9 @@
 
 import { FormSchema } from '@/Types/Link'
 import { prisma } from '@/lib/db'
+import { formStructureSchema } from '@/validation/formStructureSchema'
 import { auth } from '@clerk/nextjs/server'
+import { error } from 'console'
 import { RedirectType, permanentRedirect, redirect } from 'next/navigation'
 
 export const saveFormAndFinish = async (

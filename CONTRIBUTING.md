@@ -13,15 +13,47 @@ We expect all contributors to abide by our [Code of Conduct](CODE_OF_CONDUCT.md)
 Before you start contributing, ensure that you have:
 
 1. [Node.js](https://nodejs.org/) installed (version 18.x.x).
-2. [PNPM](https://pnpm.io/) installed (version 8.x.x).
-3. Cloned the repository.
+2. [Next.js](https://nextjs.org/) (version 14.x.x)
+3. [PNPM](https://pnpm.io/) installed (version 8.x.x).
+4. To run on your local machine make sure you have a clerk Account and local PostgreSQL setup and running.
+5. Cloned the repository.
+   
+### Tech used
+```
+* Next.js (version >= 14)
+* Prisma ORM with PostgreSQL 
+* Clerk Auth
+* TailwindCSS and Shadcn-UI 
+```
 
 ## Setting Up the Project
 
 1. Fork the repository on GitHub.
 2. Clone your forked repository to your local machine.
-3. Install the project dependencies by running `pnpm install`.
-4. Start the development server using `pnpm dev`.
+4. Install the project dependencies by running `pnpm install`.
+5. Start the development server using `pnpm dev`.
+
+* Setup Clerk and Prisma
+```bash
+# Create '.env.local' in root & use .env.template for structure 
+
+# Create '.env' for Prisma and add DATABASE_URL for example if on local with port 5432
+DATABASE_URL="postgres://postgres:[your_password]@localhost:5432/[your_db_name]"
+```
+
+* Sync Prisma Schmea with your DB and generate a Prisma client.
+```bash
+pnpm db-migrate-dev --name init
+
+# To view your DB use
+pnpm db
+```
+
+* Run these commands in the project dir.
+```bash
+pnpm i
+pnpm dev
+```
 
 ## Raising an Issue
 

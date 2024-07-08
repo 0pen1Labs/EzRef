@@ -1,4 +1,4 @@
-# RefLink (EzRef) 
+# EzRef 
 | *Under Development*
 
 EzRef, a project developed by 0pen1Labs, is the ultimate solution to streamline referral management processes with ease and efficiency. 

@@ -1,17 +1,19 @@
 {
-  "name": "reflink",
+  "name": "ezRef",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
+    "test": "vitest",
     "lint": "next lint",
-    "db-migrate-dev": "pnpm exec prisma migrate dev --name '${npm_config_name}'",
-    "db-migrate-deploy": "pnpm exec prisma migrate deploy --name '${npm_config_name}'",
-    "db-push": "pnpm exec prisma db push",
-    "db-gen": "pnpm exec prisma generate",
-    "db": "pnpm exec prisma studio"
+    "db:migrate:dev": "pnpm exec prisma migrate dev --name '${npm_config_name}'",
+    "db:migrate:deploy": "pnpm exec prisma migrate deploy --name '${npm_config_name}'",
+    "db:push": "pnpm exec prisma db push",
+    "db:gen": "pnpm exec prisma generate",
+    "db:ui": "pnpm exec prisma studio"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -56,23 +58,31 @@
     "sonner": "^1.3.1",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "vite-plugin-magical-svg": "^1.3.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/redux-logger": "^3.0.12",
+    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.0.1",
+    "dotenv-cli": "^7.4.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "9.0.0",
+    "jsdom": "^24.1.0",
     "postcss": "^8",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
     "prisma": "^5.15.0",
     "redux-logger": "^3.0.6",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^2.0.3"
   }
 }

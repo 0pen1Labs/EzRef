@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <main className=" flex h-screen min-h-screen flex-col bg-background text-foreground ">
       <BackgroundBeams />
-      <Header className='z-10 bg-transparent'/>
-      <div className="flex z-10 flex-grow flex-row items-center justify-evenly ">
+      <Header className="z-10 bg-transparent" />
+      <div className="z-10 flex flex-grow flex-row items-center justify-evenly ">
         <div className="flex flex-col items-start">
           <div className="relative">
             <Image
@@ -21,7 +21,9 @@ export default function Home() {
               src={Line}
               alt={'line'}
             />
-            <div className="text-lg font-normal text-foreground/50">
+            <div
+              id="welcome-text"
+              className="text-lg font-normal text-foreground/50">
               Hello, Welcome
             </div>
           </div>

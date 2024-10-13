@@ -44,7 +44,6 @@ function GenerateNewLinkCard() {
   })
 
   const onSubmit = async (data: z.infer<typeof refLinkSchema>) => {
-    console.log(data)
     const res = await addReferralLink(data)
     if (res) {
       toast({
@@ -89,8 +88,7 @@ function GenerateNewLinkCard() {
         <form
           autoComplete="off"
           onSubmit={refLinkForm.handleSubmit(onSubmit, onError)}
-          className="mt-4 flex flex-col"
-        >
+          className="mt-4 flex flex-col">
           <FormField
             control={refLinkForm.control}
             name="name"

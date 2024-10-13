@@ -19,7 +19,7 @@ function LinkInputEzref({ type, form }: Props) {
 
   useEffect(() => {
     if (type === 'ezref') {
-      dispatch(setDomain('ezref.com'))
+      dispatch(setDomain('ezref.in'))
     } else {
       dispatch(setDomain(''))
     }
@@ -79,8 +79,7 @@ function LinkInputEzref({ type, form }: Props) {
         <button
           disabled={form.formState.isSubmitting}
           type="submit"
-          className="flow-row group group ms-2 flex items-center border-none bg-transparent outline-none"
-        >
+          className="flow-row group group ms-2 flex items-center border-none bg-transparent outline-none">
           <span className="text-base font-bold text-primary/80 group-hover:text-primary">
             Generate
           </span>

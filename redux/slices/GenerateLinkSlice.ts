@@ -9,7 +9,7 @@ type LinkDetails = {
 const initialState: LinkDetails = {
   name: '',
   linkCode: '',
-  domain: 'ezref.org',
+  domain: 'ezref.in',
 }
 
 export const generateLinkSlice = createSlice({

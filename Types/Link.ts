@@ -31,10 +31,17 @@ export type Form = {
 }
 
 export type FormSchema = {
+  fid?: string
   title?: string
   question?: string
   type?: FieldType
   description?: string
+}
+
+export type FieldResponse = {
+  fid: string
+  type: FieldType
+  value: string
 }
 
 export enum FieldType {

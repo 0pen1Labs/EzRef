@@ -9,47 +9,132 @@ import { Separator } from './ui/separator'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { Input } from './ui/input'
-import { FieldType } from '@/Types/Link'
+import { FieldResponse, FieldType } from '@/Types/Link'
+import { Textarea } from './ui/textarea'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
+import { setResponse } from '@/redux/slices/FormResponseSlice'
 
 type Params = {
+  fid: string
   className?: string
   question?: string
   type: FieldType
   description?: string
   currentIndex: number
+  setCurrentIndex: Dispatch<SetStateAction<number>>
   totalItems: number
-  onNext: () => void
-  onBack: () => void
-  onSubmit: () => void
 }
 function PublicFormField({
+  fid,
   className,
   question,
   type,
   description,
   currentIndex,
+  setCurrentIndex,
   totalItems,
-  onNext,
-  onBack,
-  onSubmit,
 }: Params) {
+  const fieldResponse: Array<FieldResponse> = useSelector(
+    (state) => state.rootReducer.formResponse,
+  )
+  const [inputValue, setInputValue] = useState<string>('')
+  const dispatch = useDispatch()
+
   const FieldInput = {
-    [FieldType.short]: <Input type="text" className="bg-background" />,
-    [FieldType.long]: <Input type="text" className="bg-background" />,
-    [FieldType.number]: <Input type="number" className="bg-background" />,
-    [FieldType.date]: <Input type="date" className="bg-background" />,
-    [FieldType.file]: <Input type="file" className="bg-background" />,
+    [FieldType.short]: (
+      <Input
+        name={`sort_${currentIndex}`}
+        type="sort"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="bg-background"
+      />
+    ),
+    [FieldType.long]: (
+      <Textarea
+        name={`long_${currentIndex}`}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="bg-background"
+      />
+    ),
+    [FieldType.number]: (
+      <Input
+        name={`number_${currentIndex}`}
+        type="number"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="bg-background"
+      />
+    ),
+    [FieldType.date]: (
+      <Input
+        name={`date_${currentIndex}`}
+        type="date"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="bg-background"
+      />
+    ),
+    [FieldType.file]: (
+      <Input
+        name={`file_${currentIndex}`}
+        type="file"
+        onChange={(e) => {
+          const file = e.target.files[0]
+          if (file) setInputValue(file.name)
+        }}
+        className="bg-background"
+      />
+    ),
+  }
+
+  useEffect(() => {
+    const fieldIndexInStore = fieldResponse.findIndex(
+      (field) => field.fid === fid,
+    )
+    if (fieldIndexInStore !== -1) {
+      setInputValue(fieldResponse[fieldIndexInStore].value)
+    } else {
+      setInputValue('')
+    }
+  }, [fid])
+
+  function handleBack() {
+    if (currentIndex > 0) {
+      console.log('going back')
+      setCurrentIndex((prev) => prev - 1)
+    }
+  }
+
+  function handleNext() {
+    if (currentIndex < totalItems - 1) {
+      if (inputValue !== '') {
+        console.log('going next')
+        const payload = {
+          fid,
+          value: inputValue,
+          type,
+        }
+        dispatch(setResponse(payload))
+        setCurrentIndex((prev) => prev + 1)
+      }
+    }
+  }
+
+  function handleSubmit() {
+    console.log('submitted')
   }
 
   function handleNextAndSubmitClick() {
     if (currentIndex === totalItems - 1) {
-      onSubmit()
+      handleSubmit()
     } else {
-      onNext()
+      handleNext()
     }
   }
 
-  console.log('Type: ', type)
   return (
     <div
       className={cn(
@@ -68,7 +153,7 @@ function PublicFormField({
         <Button
           variant="outline"
           className="text-foreground/60"
-          onClick={onBack}
+          onClick={handleBack}
           disabled={currentIndex === 0}>
           {' '}
           Back{' '}

@@ -137,7 +137,6 @@ export default function FormBody({ item }: Params) {
             </Button>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogContent className="sm:max-w-md ">
-                (data)
                 <DialogHeader>
                   <DialogTitle>Share with</DialogTitle>
                   <DialogDescription>

@@ -22,9 +22,9 @@ type Props = {
 function ShareDialogContent({ domain, formCode }: Props) {
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
-  let shareLink: string;
-  if(process.env.NODE_ENV === 'development'){
-  shareLink = `http://localhost:3000/form/${formCode}`
+  let shareLink: string
+  if (process.env.NODE_ENV === 'development') {
+    shareLink = `http://localhost:3000/form/${formCode}`
   } else {
     shareLink = `https://${domain}/form/${formCode}`
   }
@@ -45,29 +45,25 @@ function ShareDialogContent({ domain, formCode }: Props) {
         <Button
           aria-label="LinkedIn"
           className="h-8 w-8 items-center rounded-full border border-foreground/10 bg-transparent text-foreground/80 opacity-80 hover:bg-inherit hover:opacity-100"
-          size={'icon'}
-        >
+          size={'icon'}>
           <FaLinkedin />
         </Button>
         <Button
           aria-label="Twitter"
           className="h-8 w-8 items-center rounded-full border border-foreground/10 bg-transparent text-foreground/80 opacity-80 hover:bg-inherit hover:opacity-100"
-          size={'icon'}
-        >
+          size={'icon'}>
           <FaXTwitter />
         </Button>
         <Button
           aria-label="Instagram"
           className="h-8 w-8 items-center rounded-full border border-foreground/10 bg-transparent text-foreground/80 opacity-80 hover:bg-inherit hover:opacity-100"
-          size={'icon'}
-        >
+          size={'icon'}>
           <FaInstagram />
         </Button>
         <Button
           aria-label="Whatsapp"
           className="h-8 w-8 items-center rounded-full border border-foreground/10 bg-transparent text-foreground/80 opacity-80 hover:bg-inherit hover:opacity-100"
-          size={'icon'}
-        >
+          size={'icon'}>
           <FaWhatsapp />
         </Button>
       </div>
@@ -75,17 +71,16 @@ function ShareDialogContent({ domain, formCode }: Props) {
       <div className="mt-2 text-sm font-thin text-foreground/30">
         Share link
       </div>
-      <div className="flex w-full flex-row items-center space-x-2 rounded-md border border-foreground/20 px-2">
-        <Link2Icon className="mr-2 h-6 w-6" />
-        <div className="w-full text-sm font-thin text-foreground/70">
+      <div className="flex w-full flex-row items-center justify-between space-x-2 rounded-md border border-foreground/20 px-2">
+        <Link2Icon className="h-6 w-6" />
+        <div className="flex-grow truncate text-sm font-thin text-foreground/70">
           {shareLink}
         </div>
         <Button
           variant={'link'}
           size="icon"
           className="animate-in"
-          onClick={() => copyToClipBoard(shareLink)}
-        >
+          onClick={() => copyToClipBoard(shareLink)}>
           {isCopied ? <CheckCircledIcon /> : <ClipboardCopyIcon />}
         </Button>
       </div>

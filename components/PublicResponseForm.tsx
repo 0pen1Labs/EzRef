@@ -28,13 +28,6 @@ function PublicResponseForm({ formStructure }: Params) {
     }
   }
 
-  function handleBack() {
-    if (currentField > 0) {
-      console.log('going back')
-      setCurrentField((prev) => prev - 1)
-    }
-  }
-
   function handleSubmit() {
     console.log('submitted')
   }
@@ -48,8 +41,7 @@ function PublicResponseForm({ formStructure }: Params) {
             href="https://github.com/0pen1Labs/RefLink"
             target="_blank"
             rel="noopener noreferrer"
-            className={buttonVariants({ variant: 'ghost', size: 'icon' })}
-          >
+            className={buttonVariants({ variant: 'ghost', size: 'icon' })}>
             <GitHubLogoIcon className="h-[1.2rem] w-[1.2rem]" />
           </Link>
           <ThemeSwitcher />
@@ -65,15 +57,14 @@ function PublicResponseForm({ formStructure }: Params) {
           </div>
         </div>
         <PublicFormField
+          fid={fields[currentField].fid as string}
           className="mt-8 md:mt-14"
           question={fields[currentField].question}
           type={fields[currentField].type as FieldType}
           description={fields[currentField].description}
           currentIndex={currentField}
+          setCurrentIndex={setCurrentField}
           totalItems={fields.length}
-          onNext={handleNext}
-          onBack={handleBack}
-          onSubmit={handleSubmit}
         />
       </div>
       <Footer className="bg-transparent" />

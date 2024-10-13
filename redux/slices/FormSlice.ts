@@ -1,6 +1,7 @@
 import { FieldType, FormSchema } from '@/Types/Link'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { stat } from 'fs'
+import { nanoid } from 'nanoid'
 
 type InitForm = {
   name: string
@@ -9,6 +10,7 @@ type InitForm = {
 }
 
 const blankField: FormSchema = {
+  fid: nanoid(16),
   question: 'Question',
   type: undefined,
   description: 'Description',
@@ -83,7 +85,10 @@ export const createFormSlice = createSlice({
     },
     addField: (state, action: PayloadAction<number>) => {
       const position = action.payload + 1
-      state.formStructure.splice(position, 0, blankField)
+      state.formStructure.splice(position, 0, {
+        ...blankField,
+        fid: nanoid(16),
+      })
     },
     deleteField: (state, action: PayloadAction<number>) => {
       const position = action.payload

@@ -10,7 +10,7 @@
 /coverage
 
 #prisma migration
-*/migrations/*
+
 
 #IDE
 .idea

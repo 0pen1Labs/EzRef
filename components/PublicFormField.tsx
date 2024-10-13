@@ -82,7 +82,7 @@ function PublicFormField({
         name={`file_${currentIndex}`}
         type="file"
         onChange={(e) => {
-          const file = e.target.files[0]
+          const file = e.target.files?.[0]
           if (file) setInputValue(file.name)
         }}
         className="bg-background"

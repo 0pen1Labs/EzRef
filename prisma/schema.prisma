@@ -22,18 +22,6 @@ model User {
   referralLinks RefLinks[]
 }
 
-model Form {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  title       String?  @db.Text
-  description String?  @db.Text
-  isFavorite  Boolean
-  updatedAt   DateTime @updatedAt()
-  ref         RefLinks @relation(fields: [refId], references: [id])
-  refId       String   @unique
-  formFields  Json
-}
-
 model RefLinks {
   id          String       @id @default(uuid())
   name        String?      @db.Text
@@ -46,10 +34,22 @@ model RefLinks {
   formCode    String       @unique
   clerkId     String
   user        User         @relation(fields: [clerkId], references: [clerkId])
-  Form        Form?
+  form        Form?
   response    Submission[]
 
   @@index([createdAt])
+}
+
+model Form {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  title       String?  @db.Text
+  description String?  @db.Text
+  isFavorite  Boolean
+  updatedAt   DateTime @updatedAt()
+  refLink     RefLinks @relation(fields: [refId], references: [id])
+  refId       String   @unique
+  formFields  Json
 }
 
 model Submission {

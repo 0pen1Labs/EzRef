@@ -27,7 +27,7 @@ async function getLinkById(id: string) {
         formCode: true,
         createdAt: true,
         updatedAt: true,
-        Form: true,
+        form: true,
       },
     })
 

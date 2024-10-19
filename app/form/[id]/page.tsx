@@ -20,7 +20,7 @@ const getForm = async (formCode: string) => {
       id: true,
       domain: true,
       formCode: true,
-      Form: true,
+      form: true,
     },
   })
 
@@ -48,7 +48,7 @@ async function page({ params }: Params) {
     <div>
       <HeroHighlight containerClassName="w-full h-screen ">
         <PublicResponseForm
-          formStructure={publicForm.Form?.formFields as Array<FormSchema>}
+          formStructure={publicForm.form?.formFields as Array<FormSchema>}
         />
       </HeroHighlight>
     </div>

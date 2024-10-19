@@ -64,8 +64,8 @@ export default function FormBody({ item }: Params) {
   const { toast } = useToast()
 
   useEffect(() => {
-    if (item.Form && item.Form.formFields.length !== 0) {
-      dispatch(setFormStructure(item.Form.formFields))
+    if (item.form && item.form.formFields.length !== 0) {
+      dispatch(setFormStructure(item.form.formFields))
     } else {
       dispatch(setInitialState())
     }

@@ -8,7 +8,7 @@ export type LinkResponse = {
   formCode: string
   createdAt: Date
   updatedAt: Date
-  Form: null | Form
+  form: null | Form
 }
 
 export type LinkItem = {
@@ -39,7 +39,7 @@ export type FormSchema = {
 }
 
 export type FieldResponse = {
-  fid: string
+  fieldId: string
   type: FieldType
   value: string
 }

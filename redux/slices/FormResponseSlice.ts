@@ -8,8 +8,8 @@ export const createFormResponseSlice = createSlice({
   initialState,
   reducers: {
     setResponse: (state, action: PayloadAction<FieldResponse>) => {
-      const { fid } = action.payload
-      const index = state.findIndex((element) => element.fid === fid)
+      const { fieldId } = action.payload
+      const index = state.findIndex((element) => element.fieldId === fieldId)
 
       if (index !== -1) {
         state.splice(index, 1)

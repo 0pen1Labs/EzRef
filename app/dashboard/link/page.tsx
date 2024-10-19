@@ -8,7 +8,7 @@ import { Suspense, useEffect, useState } from 'react'
 import AllLinksField from '@/components/AllLinksField'
 import { LinkItem } from '@/Types/Link'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import Loader from './loader'
+import Loading from './loader'
 import {
   Dialog,
   DialogContent,
@@ -19,9 +19,10 @@ import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import GenerateNewLinkCard from '@/components/GenerateNewLinkCard'
 
 export default function Link() {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(0)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [totalPages, setTotalPages] = useState<number>(0)
   const [links, setLinks] = useState<Array<LinkItem>>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     fetchLinks()
@@ -42,6 +43,7 @@ export default function Link() {
   }
 
   async function fetchLinks() {
+    setLoading(true)
     const links = await fetch('/api/v1/link', {
       method: 'POST',
       headers: {
@@ -51,9 +53,13 @@ export default function Link() {
     })
 
     const data = await links.json()
-    console.log('data', data)
+    setLoading(false)
     setLinks(data.links)
     setTotalPages(data.totalPage)
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   const noData = (
@@ -105,7 +111,7 @@ export default function Link() {
         </div>
       </div>
       <ScrollArea className="w-full flex-grow">
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loading />}>
           <div className="flex w-full flex-grow flex-col items-start justify-start">
             {links.length != 0 ? listView : noData}
           </div>

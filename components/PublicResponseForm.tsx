@@ -34,6 +34,7 @@ function PublicResponseForm({ formStructure }: Params) {
 
   return (
     <div className="z-50 flex h-screen w-screen flex-col bg-transparent text-foreground">
+      {/* TODO: put this in layout */}
       <div className="flex flex-row items-center justify-between px-10 py-4 pt-6 text-foreground md:px-32">
         <Logo />
         <div className="flex flex-row items-center space-x-4">
@@ -47,6 +48,7 @@ function PublicResponseForm({ formStructure }: Params) {
           <ThemeSwitcher />
         </div>
       </div>
+      {/* --------------------------- */}
       <div className="flex h-full w-full flex-grow flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center">
           <div className="text-3xl font-light text-foreground/80">
@@ -57,7 +59,7 @@ function PublicResponseForm({ formStructure }: Params) {
           </div>
         </div>
         <PublicFormField
-          fid={fields[currentField].fid as string}
+          fieldId={fields[currentField].fid as string}
           className="mt-8 md:mt-14"
           question={fields[currentField].question}
           type={fields[currentField].type as FieldType}

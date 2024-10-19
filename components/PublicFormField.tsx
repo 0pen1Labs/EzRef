@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from '@/hooks/useReduxHooks'
 import { setResponse } from '@/redux/slices/FormResponseSlice'
 
 type Params = {
-  fid: string
+  fieldId: string
   className?: string
   question?: string
   type: FieldType
@@ -26,7 +26,7 @@ type Params = {
   totalItems: number
 }
 function PublicFormField({
-  fid,
+  fieldId,
   className,
   question,
   type,
@@ -92,14 +92,14 @@ function PublicFormField({
 
   useEffect(() => {
     const fieldIndexInStore = fieldResponse.findIndex(
-      (field) => field.fid === fid,
+      (field) => field.fieldId === fieldId,
     )
     if (fieldIndexInStore !== -1) {
       setInputValue(fieldResponse[fieldIndexInStore].value)
     } else {
       setInputValue('')
     }
-  }, [fid])
+  }, [fieldId])
 
   function handleBack() {
     if (currentIndex > 0) {
@@ -113,7 +113,7 @@ function PublicFormField({
       if (inputValue !== '') {
         console.log('going next')
         const payload = {
-          fid,
+          fieldId,
           value: inputValue,
           type,
         }
